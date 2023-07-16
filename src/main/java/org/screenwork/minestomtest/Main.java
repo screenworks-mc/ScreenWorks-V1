@@ -36,7 +36,7 @@ public class Main {
         });
 
         // Start the server on port 25565
-        minecraftServer.start("0.0.0.0", 25565);
+        minecraftServer.start("0.0.0.0", 25566);
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             event.getPlayer().setGameMode(GameMode.CREATIVE);
@@ -44,7 +44,6 @@ public class Main {
 
         MinecraftServer.getCommandManager().register(new GamemodeCMD());
         MinecraftServer.getCommandManager().register(new GamemodeAliasCMD());
-
 
 
     }

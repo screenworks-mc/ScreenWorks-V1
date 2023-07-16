@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.0"
+}
+
+group 'org.screenwork.minestomtest'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    // WARNING: outdated version, replace it to the latest
+    // Reminder: can be found at https://jitpack.io/#Minestom/Minestom
+    implementation 'dev.hollowcube:minestom-ce:74ca1041f3'
+}
+
+jar {
+    manifest {
+        // WARNING: change the 'Main-Class' value
+        attributes 'Main-Class': 'org.screenwork.minestomtest.Main',
+                    "Multi-Release": true
+    }
+}
