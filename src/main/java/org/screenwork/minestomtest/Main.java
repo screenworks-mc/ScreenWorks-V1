@@ -1,16 +1,23 @@
 package org.screenwork.minestomtest;
 
+import club.minnced.discord.webhook.WebhookClient;
+import club.minnced.discord.webhook.WebhookClientBuilder;
+import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
+import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.event.GlobalEventHandler;
+import net.minestom.server.event.player.PlayerChatEvent;
 import net.minestom.server.event.player.PlayerLoginEvent;
+import net.minestom.server.event.player.PlayerSkinInitEvent;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
+import org.screenwork.minestomtest.commands.gamemode.GiveCMD;
 
 public class Main {
 
@@ -39,12 +46,19 @@ public class Main {
         minecraftServer.start("0.0.0.0", 25566);
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
+
             event.getPlayer().setGameMode(GameMode.CREATIVE);
+
+        });
+
+        globalEventHandler.addListener(PlayerSkinInitEvent.class, event -> {
+            PlayerSkin skin = PlayerSkin.fromUsername(event.getPlayer().getUsername());
+            event.setSkin(skin);
         });
 
         MinecraftServer.getCommandManager().register(new GamemodeCMD());
         MinecraftServer.getCommandManager().register(new GamemodeAliasCMD());
-
+        MinecraftServer.getCommandManager().register(new GiveCMD());
 
     }
 }
