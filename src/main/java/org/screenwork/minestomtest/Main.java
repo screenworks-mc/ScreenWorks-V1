@@ -71,6 +71,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new SummonCMD());
         MinecraftServer.getCommandManager().register(new TeleportCMD());
         MinecraftServer.getCommandManager().register(new KillCMD());
+        MinecraftServer.getCommandManager().register(new ToBlockCMD());
 
     }
 }

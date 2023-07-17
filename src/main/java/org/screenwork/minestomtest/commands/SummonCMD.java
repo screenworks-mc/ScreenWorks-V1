@@ -35,7 +35,6 @@ public class SummonCMD extends Command {
         var summonArg = ArgumentType.Word("summon").from(entityname.toArray(new String[0]));
 
         summonArg.setSuggestionCallback((sender, context, suggestion) -> {
-            suggestion.addEntry(new SuggestionEntry("all"));
             for (EntityType entity : EntityType.values()) {
                 suggestion.addEntry(new SuggestionEntry(entity.name()));
             }
