@@ -1,4 +1,4 @@
-package org.screenwork.minestomtest.commands.gamemode;
+package org.screenwork.minestomtest.commands;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.CommandSender;

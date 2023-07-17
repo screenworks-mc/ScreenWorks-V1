@@ -1,4 +1,4 @@
-package org.screenwork.minestomtest.commands.gamemode;
+package org.screenwork.minestomtest.commands;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
