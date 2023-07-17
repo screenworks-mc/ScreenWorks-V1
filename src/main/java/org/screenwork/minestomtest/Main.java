@@ -6,11 +6,14 @@ import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.event.GlobalEventHandler;
+import net.minestom.server.event.player.PlayerChatEvent;
+import net.minestom.server.event.player.PlayerCommandEvent;
 import net.minestom.server.event.player.PlayerLoginEvent;
 import net.minestom.server.event.player.PlayerSkinInitEvent;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
+import org.screenwork.minestomtest.commands.SummonCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
 import org.screenwork.minestomtest.commands.GiveCMD;
@@ -53,11 +56,21 @@ public class Main {
             event.setSkin(skin);
         });
 
+        globalEventHandler.addListener(PlayerCommandEvent.class, event -> {
+            //Make actual logger later
+            System.out.println(event.getPlayer().getUsername() + " ran: " + event.getCommand());
+        });
+
+        globalEventHandler.addListener(PlayerChatEvent.class, event -> {
+            //Make actual logger later
+            System.out.println("<" + event.getPlayer().getUsername() + "> " + event.getMessage());
+        });
+
         MinecraftServer.getCommandManager().register(new GamemodeCMD());
         MinecraftServer.getCommandManager().register(new GamemodeAliasCMD());
         MinecraftServer.getCommandManager().register(new GiveCMD());
         MinecraftServer.getCommandManager().register(new TimeCMD());
-        MinecraftServer.getCommandManager().register(new TeleportCMD());
+        MinecraftServer.getCommandManager().register(new SummonCMD());
 
     }
 }
