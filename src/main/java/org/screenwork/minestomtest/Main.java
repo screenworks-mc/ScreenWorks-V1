@@ -14,6 +14,7 @@ import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.SummonCMD;
+import org.screenwork.minestomtest.commands.TeleportCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
 import org.screenwork.minestomtest.commands.GiveCMD;
@@ -58,7 +59,7 @@ public class Main {
 
         globalEventHandler.addListener(PlayerCommandEvent.class, event -> {
             //Make actual logger later
-            System.out.println(event.getPlayer().getUsername() + " ran: " + event.getCommand());
+            System.out.println(event.getPlayer().getUsername() + " ran: /" + event.getCommand());
         });
 
         globalEventHandler.addListener(PlayerChatEvent.class, event -> {
@@ -71,6 +72,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new GiveCMD());
         MinecraftServer.getCommandManager().register(new TimeCMD());
         MinecraftServer.getCommandManager().register(new SummonCMD());
+        MinecraftServer.getCommandManager().register(new TeleportCMD());
 
     }
 }
