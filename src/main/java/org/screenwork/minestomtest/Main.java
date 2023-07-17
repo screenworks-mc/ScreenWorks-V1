@@ -18,6 +18,7 @@ import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
 import org.screenwork.minestomtest.commands.gamemode.GiveCMD;
+import org.screenwork.minestomtest.commands.gamemode.TimeCMD;
 
 public class Main {
 
@@ -59,6 +60,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new GamemodeCMD());
         MinecraftServer.getCommandManager().register(new GamemodeAliasCMD());
         MinecraftServer.getCommandManager().register(new GiveCMD());
+        MinecraftServer.getCommandManager().register(new TimeCMD());
 
     }
 }
