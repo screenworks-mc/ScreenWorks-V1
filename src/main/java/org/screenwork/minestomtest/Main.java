@@ -57,6 +57,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new GamemodeAliasCMD());
         MinecraftServer.getCommandManager().register(new GiveCMD());
         MinecraftServer.getCommandManager().register(new TimeCMD());
+        MinecraftServer.getCommandManager().register(new TeleportCMD());
 
     }
 }
