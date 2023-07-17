@@ -13,12 +13,9 @@ import net.minestom.server.event.player.PlayerSkinInitEvent;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
-import org.screenwork.minestomtest.commands.SummonCMD;
-import org.screenwork.minestomtest.commands.TeleportCMD;
+import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
-import org.screenwork.minestomtest.commands.GiveCMD;
-import org.screenwork.minestomtest.commands.TimeCMD;
 
 public class Main {
 
@@ -73,6 +70,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new TimeCMD());
         MinecraftServer.getCommandManager().register(new SummonCMD());
         MinecraftServer.getCommandManager().register(new TeleportCMD());
+        MinecraftServer.getCommandManager().register(new KillCMD());
 
     }
 }
