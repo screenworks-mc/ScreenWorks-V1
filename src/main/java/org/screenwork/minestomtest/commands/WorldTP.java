@@ -15,7 +15,6 @@ public class WorldTP extends Command {
         super("worldtp", "wtp");
 
         setDefaultExecutor((sender, context) -> sender.sendMessage("Usage: /worldtp <world>"));
-
         var Argument = ArgumentType.String("world");
 
         addSyntax(this::execute);
