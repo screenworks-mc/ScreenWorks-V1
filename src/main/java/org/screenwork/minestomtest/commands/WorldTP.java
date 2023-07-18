@@ -16,9 +16,9 @@ public class WorldTP extends Command {
 
         setDefaultExecutor((sender, context) -> sender.sendMessage("Usage: /worldtp <world>"));
 
-        var Argument = ArgumentType.String("world");
+        var worldArg = ArgumentType.String("world");
 
-        addSyntax(this::execute);
+        addSyntax(this::execute, worldArg);
     }
 
     private void execute(@NotNull CommandSender commandSender, @NotNull CommandContext context) {
@@ -27,7 +27,8 @@ public class WorldTP extends Command {
 
         String worldname = context.get("world");
 
-        MinecraftServer.getInstanceManager().getInstances().stream().filter(instance -> instance.getDimensionName().equals(worldname)).findFirst()
+        MinecraftServer.getInstanceManager().getInstances().stream().filter(instance -> instance.getDimensionName()
+                        .replaceAll("minecraft:", "").replaceAll("screenwork:", "").equals(worldname)).findFirst()
                 .ifPresentOrElse(instance -> {
             player.setInstance(instance);
             player.sendMessage("You have been teleported to " + worldname);
