@@ -5,17 +5,12 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.arguments.ArgumentType;
-import net.minestom.server.command.builder.arguments.minecraft.SuggestionType;
-import net.minestom.server.command.builder.suggestion.SuggestionEntry;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.LivingEntity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.damage.DamageType;
 import net.minestom.server.instance.Instance;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class KillCMD extends Command {
 

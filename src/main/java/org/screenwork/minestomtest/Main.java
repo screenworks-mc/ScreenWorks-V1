@@ -50,7 +50,7 @@ public class Main {
             event.getResponseData().setDescription("ScreenWork Minecraft Server");
             event.getResponseData().setOnline(18);
             event.getResponseData().addPlayer("play.screenwork.net");
-            event.getResponseData().setVersion("Example");
+            event.getResponseData().setVersion("1.20.1");
         });
 
         // Start the server on port 25566
@@ -87,6 +87,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new BanCMD());
         MinecraftServer.getCommandManager().register(new UnbanCMD());
         MinecraftServer.getCommandManager().register(new ToBlockCMD());
+        MinecraftServer.getCommandManager().register(new RebuildLightCacheCommand());
 
     }
 }

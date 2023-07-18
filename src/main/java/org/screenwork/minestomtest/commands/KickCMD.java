@@ -1,13 +1,10 @@
 package org.screenwork.minestomtest.commands;
 
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.command.builder.suggestion.SuggestionEntry;
-import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
-import net.minestom.server.network.player.PlayerConnection;
 
 public class KickCMD extends Command {
 
