@@ -16,6 +16,7 @@ import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
+import org.screenwork.minestomtest.commands.BanCMD;
 
 public class Main {
 
@@ -25,12 +26,16 @@ public class Main {
         MinecraftServer minecraftServer = MinecraftServer.init();
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
 
+        // Set the brand name
+        MinecraftServer.setBrandName("ScreenWork - V1");
+
         // Create the instance
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
 
         // Set the ChunkGenerator
         instanceContainer.setGenerator(unit ->
-                unit.modifier().fillHeight(0, 40, Block.GRASS_BLOCK));
+                unit.modifier().fillHeight(0, 40, Block.DIAMOND_BLOCK));
+
 
         // Add an event callback to specify the spawning instance (and the spawn position)
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
@@ -40,13 +45,12 @@ public class Main {
             player.setRespawnPoint(new Pos(0, 42, 0));
         });
 
-        // Start the server on port 25565
+        // Start the server on port 25566
         minecraftServer.start("0.0.0.0", 25566);
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
-
             event.getPlayer().setGameMode(GameMode.CREATIVE);
-
+            System.out.println("[+] " + event.getPlayer() + " - (AKA: " + event.getPlayer().getUsername() + ")");
         });
 
         globalEventHandler.addListener(PlayerSkinInitEvent.class, event -> {
@@ -71,6 +75,9 @@ public class Main {
         MinecraftServer.getCommandManager().register(new SummonCMD());
         MinecraftServer.getCommandManager().register(new TeleportCMD());
         MinecraftServer.getCommandManager().register(new KillCMD());
+        MinecraftServer.getCommandManager().register(new KickCMD());
+        MinecraftServer.getCommandManager().register(new BanCMD());
+        MinecraftServer.getCommandManager().register(new UnbanCMD());
 
     }
 }
