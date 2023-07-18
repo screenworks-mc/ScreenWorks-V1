@@ -52,14 +52,12 @@ public class BanCMD extends Command {
             if (target != null)
                 target.kick("You were just banned! Reason: " + context.get(reasonArgument));
 
-
             sender.sendMessage("You just banned " + target.getUsername() + " for \"" + context.get(reasonArgument) + "\".");
 
             playerBans.add(target.getUsername());
 
             System.out.println("Ban List: " + playerBans);
             System.out.println("BAN: " + target.getUsername() + " was just banned by " + sender.asPlayer().getUsername());
-
 
         }, playerArgument, reasonArgument);
 
