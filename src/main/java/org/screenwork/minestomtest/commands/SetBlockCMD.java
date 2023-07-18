@@ -19,6 +19,8 @@ public class SetBlockCMD extends Command {
         //Sets a block at the specified coordinates
         //Usage: /setblock <x> <y> <z> <block>
 
+        //TODO: fix
+
         var blockArg = ArgumentType.String("block");
 
         var xArg = ArgumentType.Integer("x");
@@ -30,15 +32,6 @@ public class SetBlockCMD extends Command {
             int x = player.getTargetBlockPosition(5).blockX();
             suggestion.addEntry(new SuggestionEntry(String.valueOf(x)));});
 
-        yArg.setSuggestionCallback((sender, context, suggestion) -> {
-            Player player = (Player) sender;
-            var x = player.getTargetBlockPosition(5).blockY();
-            suggestion.addEntry(new SuggestionEntry(String.valueOf(x)));});
-
-        zArg.setSuggestionCallback((sender, context, suggestion) -> {
-            Player player = (Player) sender;
-            var x = player.getTargetBlockPosition(5).blockZ();
-            suggestion.addEntry(new SuggestionEntry(String.valueOf(x)));});
 
         addSyntax(this::executer, xArg, yArg, zArg, blockArg);
         setCondition(Conditions::playerOnly);

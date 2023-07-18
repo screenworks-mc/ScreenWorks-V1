@@ -28,17 +28,16 @@ public class CreateWorldCMD extends Command {
 
     private void executer(@NotNull CommandSender commandSender, @NotNull CommandContext context) {
 
-            var worldName = context.get("worldName");
+            String worldName = context.get("worldName");
 
+            MinecraftServer.getDimensionTypeManager().addDimension(DimensionType.builder(NamespaceID.from("screenwork:" + worldName)).build());
 
-        // Set the ChunkGenerator
-        MinecraftServer.getDimensionTypeManager().addDimension(DimensionType.builder(NamespaceID.from("Test:test")).build());
-        var instanceContainer = MinecraftServer.getInstanceManager().createInstanceContainer(Objects.requireNonNull(MinecraftServer
-                .getDimensionTypeManager().getDimension(NamespaceID.from("Test:test"))));
+            var instanceContainer = MinecraftServer.getInstanceManager().createInstanceContainer(Objects.requireNonNull(MinecraftServer
+                    .getDimensionTypeManager().getDimension(NamespaceID.from("screenwork:" + worldName))));
 
-        instanceContainer.setGenerator(GenerationUnit::modifier);
+            instanceContainer.setGenerator(GenerationUnit::modifier);
 
-        commandSender.asPlayer().setInstance(instanceContainer);
+            commandSender.asPlayer().setInstance(instanceContainer);
 
     }
 
