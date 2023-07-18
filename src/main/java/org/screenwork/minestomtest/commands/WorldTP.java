@@ -33,7 +33,6 @@ public class WorldTP extends Command {
             player.sendMessage("You have been teleported to " + worldname);
         }, () -> player.sendMessage("That world does not exist."));
 
-
     }
 
 }
