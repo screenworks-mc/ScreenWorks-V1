@@ -21,6 +21,7 @@ import org.screenwork.minestomtest.commands.moderation.BanCMD;
 import org.screenwork.minestomtest.commands.GiveCMD;
 import org.screenwork.minestomtest.commands.moderation.KickCMD;
 import org.screenwork.minestomtest.commands.moderation.UnbanCMD;
+import org.screenwork.minestomtest.commands.worldmanager.WorldManagerCMD;
 
 public class Main {
 
@@ -93,6 +94,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new RebuildLightCacheCommand());
         MinecraftServer.getCommandManager().register(new MessageCMD());
         MinecraftServer.getCommandManager().register(new WorldTP());
+        MinecraftServer.getCommandManager().register(new WorldManagerCMD());
 
     }
 }
