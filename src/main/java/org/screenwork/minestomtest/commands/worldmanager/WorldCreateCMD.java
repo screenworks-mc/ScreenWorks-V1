@@ -38,6 +38,8 @@ public class WorldCreateCMD extends Command {
 
             player.setInstance(instanceContainer);
 
+            player.sendMessage("World created.");
+
     }
 
 
