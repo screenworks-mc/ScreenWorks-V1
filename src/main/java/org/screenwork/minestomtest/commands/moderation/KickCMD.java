@@ -1,4 +1,4 @@
-package org.screenwork.minestomtest.commands;
+package org.screenwork.minestomtest.commands.moderation;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.Command;
@@ -32,9 +32,12 @@ public class KickCMD extends Command {
         });
 
         addSyntax((sender, context) -> {
+
             final Player player = MinecraftServer.getConnectionManager().findPlayer(context.get(playerArgument));
             MinecraftServer.getConnectionManager().getPlayer(player.getPlayerConnection()).kick(" " + context.get(reasonArgument));
+
             sender.sendMessage("You just kicked " + player.getUsername() + " for \"" + context.get(reasonArgument) + "\".");
+
         }, playerArgument, reasonArgument);
     }
 }

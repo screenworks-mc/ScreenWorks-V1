@@ -1,4 +1,4 @@
-package org.screenwork.minestomtest.commands;
+package org.screenwork.minestomtest.commands.moderation;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.Command;
@@ -15,7 +15,7 @@ import java.util.List;
 public class BanCMD extends Command {
 
     public static final List<String> playerBans = new ArrayList<String>();
-    final public ArgumentString reasonArgument = ArgumentType.String("banreason");
+    final ArgumentString reasonArgument = ArgumentType.String("banreason");
 
     public BanCMD() {
         super("ban");
@@ -24,7 +24,7 @@ public class BanCMD extends Command {
             sender.sendMessage("Usage: /ban <player> <reason>");
         });
 
-        var playerArgument = ArgumentType.String("playertoban");
+        var playerArgument = ArgumentType.String("target");
 
         playerArgument.setSuggestionCallback((sender, context, suggestion) -> {
             for (Player player : MinecraftServer.getConnectionManager().getOnlinePlayers()) {
@@ -39,20 +39,40 @@ public class BanCMD extends Command {
         });
 
         addSyntax((sender, context) -> {
-            final Player player = MinecraftServer.getConnectionManager().findPlayer(context.get(playerArgument));
-            player.kick("You were just banned! Reason: " + context.get(reasonArgument));
-            sender.sendMessage("You just banned " + player.getUsername() + " for \"" + context.get(reasonArgument) + "\".");
-            playerBans.add(player.getUsername());
-            System.out.println("Ban List: " + playerBans.toString());
-            System.out.println("BAN: " + player.getUsername() + " was just banned by " + sender.asPlayer().getUsername());
+
+            String targetArg = context.get(playerArgument);
+
+            if (playerBans.contains(targetArg)) {
+                sender.sendMessage("That player is already banned!");
+                return;
+            }
+
+            final Player target = MinecraftServer.getConnectionManager().findPlayer(targetArg);
+
+            if (target != null)
+                target.kick("You were just banned! Reason: " + context.get(reasonArgument));
+
+
+            sender.sendMessage("You just banned " + target.getUsername() + " for \"" + context.get(reasonArgument) + "\".");
+
+            playerBans.add(target.getUsername());
+
+            System.out.println("Ban List: " + playerBans);
+            System.out.println("BAN: " + target.getUsername() + " was just banned by " + sender.asPlayer().getUsername());
+
+
         }, playerArgument, reasonArgument);
 
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
+
             // System.out.println("Ban List: " + playerBans.toString());
+
             if (playerBans.contains(event.getPlayer().getUsername())) {
+
                 event.getPlayer().kick("You are currently banned! Reason: " + reasonArgument);
                 System.out.println(event.getPlayer().getUsername() + " just tried to join, but is banned!");
+
             }
         });
     }

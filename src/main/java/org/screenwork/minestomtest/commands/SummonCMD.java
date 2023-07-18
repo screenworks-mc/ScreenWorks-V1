@@ -19,7 +19,7 @@ import java.util.List;
 public class SummonCMD extends Command {
 
     public SummonCMD() {
-        super("summon", "s");
+        super("summon");
 
         setDefaultExecutor((sender, context) -> {
             sender.sendMessage("Usage: /summon <mob>");

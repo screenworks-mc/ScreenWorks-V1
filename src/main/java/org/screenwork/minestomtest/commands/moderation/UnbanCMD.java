@@ -1,4 +1,4 @@
-package org.screenwork.minestomtest.commands;
+package org.screenwork.minestomtest.commands.moderation;
 
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.arguments.ArgumentType;
@@ -22,10 +22,15 @@ public class UnbanCMD extends Command {
         });
 
         addSyntax((sender, context) -> {
+
             final String string = context.get(playerArgument);
-            sender.sendMessage("You just pardoned " + string + ".");
+
             BanCMD.playerBans.remove(string);
+            sender.sendMessage("You just pardoned " + string + ".");
+
+
             System.out.println("BAN: " + string + " was just pardoned by " + sender.asPlayer().getUsername());
+
         }, playerArgument);
     }
 }

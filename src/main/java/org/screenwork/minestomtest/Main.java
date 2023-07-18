@@ -14,10 +14,13 @@ import net.minestom.server.event.server.ServerListPingEvent;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.ping.ServerListPingType;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
+import org.screenwork.minestomtest.commands.moderation.BanCMD;
+import org.screenwork.minestomtest.commands.GiveCMD;
+import org.screenwork.minestomtest.commands.moderation.KickCMD;
+import org.screenwork.minestomtest.commands.moderation.UnbanCMD;
 
 public class Main {
 
