@@ -5,19 +5,17 @@ import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.CommandContext;
 import net.minestom.server.command.builder.arguments.ArgumentType;
-import net.minestom.server.instance.InstanceContainer;
-import net.minestom.server.instance.block.Block;
+import net.minestom.server.entity.Player;
 import net.minestom.server.instance.generator.GenerationUnit;
 import net.minestom.server.utils.NamespaceID;
 import net.minestom.server.world.DimensionType;
-import net.minestom.server.world.DimensionTypeManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class CreateWorldCMD extends Command {
+public class WorldCreateCMD extends Command {
 
-        public CreateWorldCMD() {
+        public WorldCreateCMD() {
             super("create");
 
             setDefaultExecutor((sender, context) -> sender.sendMessage("Usage: /worldmanager create <worldName>"));
@@ -28,6 +26,7 @@ public class CreateWorldCMD extends Command {
 
     private void executer(@NotNull CommandSender commandSender, @NotNull CommandContext context) {
 
+            Player player = (Player) commandSender;
             String worldName = context.get("worldName");
 
             MinecraftServer.getDimensionTypeManager().addDimension(DimensionType.builder(NamespaceID.from("screenwork:" + worldName)).build());
@@ -37,7 +36,7 @@ public class CreateWorldCMD extends Command {
 
             instanceContainer.setGenerator(GenerationUnit::modifier);
 
-            commandSender.asPlayer().setInstance(instanceContainer);
+            player.setInstance(instanceContainer);
 
     }
 

@@ -15,7 +15,7 @@ public class GiveCMD extends Command {
 
 
     public GiveCMD() {
-        super("give");
+        super("give", "i");
 
         // Executed if no other executor can be used
         setDefaultExecutor((sender, context) -> {

@@ -2,9 +2,9 @@ package org.screenwork.minestomtest.commands.worldmanager;
 
 import net.minestom.server.command.builder.Command;
 
-public class DeleteWorldCMD extends Command {
+public class WorldDeleteCMD extends Command {
 
-    public DeleteWorldCMD() {
+    public WorldDeleteCMD() {
         super("delete");
 
     }

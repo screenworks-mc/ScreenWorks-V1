@@ -8,13 +8,8 @@ public class WorldManagerCMD extends Command {
 
         super("worldmanager", "wm");
 
-      //  var createArg = ArgumentType.Command("create");
-     //   var deleteArg = ArgumentType.Command("delete");
-      //  var listArg = ArgumentType.Command("list");
-       // var tpArg = ArgumentType.Command("tp");
-
-        addSubcommand(new CreateWorldCMD());
-        addSubcommand(new DeleteWorldCMD());
+        addSubcommand(new WorldCreateCMD());
+        addSubcommand(new WorldDeleteCMD());
         addSubcommand(new WorldListCMD());
         addSubcommand(new WorldInfo());
 
