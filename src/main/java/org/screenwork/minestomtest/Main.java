@@ -61,7 +61,7 @@ public class Main {
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             event.getPlayer().setGameMode(GameMode.CREATIVE);
-            System.out.println("[+] " + event.getPlayer() + " - (AKA: " + event.getPlayer().getUsername() + ")");
+            System.out.println("[+] " + event.getPlayer().getUsername());
         });
 
         globalEventHandler.addListener(PlayerSkinInitEvent.class, event -> {
@@ -91,6 +91,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new UnbanCMD());
         MinecraftServer.getCommandManager().register(new ToBlockCMD());
         MinecraftServer.getCommandManager().register(new RebuildLightCacheCommand());
+        MinecraftServer.getCommandManager().register(new MessageCMD());
 
     }
 }
