@@ -92,6 +92,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new ToBlockCMD());
         MinecraftServer.getCommandManager().register(new RebuildLightCacheCommand());
         MinecraftServer.getCommandManager().register(new MessageCMD());
+        MinecraftServer.getCommandManager().register(new WorldTP());
 
     }
 }
