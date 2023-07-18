@@ -32,6 +32,7 @@ public class Main {
         // Initialization
         MinecraftServer minecraftServer = MinecraftServer.init();
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
+        GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
 
         // Set the brand name
         MinecraftServer.setBrandName("ScreenWork - V1");
@@ -43,8 +44,7 @@ public class Main {
         instanceContainer.setGenerator(unit ->
                 unit.modifier().fillHeight(0, 40, Block.GRASS_BLOCK));
 
-        // Add an event callback to specify the spawning instance (and the spawn position)
-        GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
+
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             final Player player = event.getPlayer();
             event.setSpawningInstance(instanceContainer);
@@ -53,6 +53,7 @@ public class Main {
 
         new PlayerLogin();
         new ServerListPing();
+        setupCommands();
 
 
         // Start the server on port 25566
@@ -63,7 +64,9 @@ public class Main {
             System.out.println(event.getPlayer().getUsername() + " ran: /" + event.getCommand());
         });
 
+    }
 
+    private static void setupCommands() {
 
         MinecraftServer.getCommandManager().register(new GamemodeCMD());
         MinecraftServer.getCommandManager().register(new GamemodeAliasCMD());
@@ -81,6 +84,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new WorldTP());
         MinecraftServer.getCommandManager().register(new WorldManagerCMD());
         MinecraftServer.getCommandManager().register(new SetBlockCMD());
+
 
     }
 }
