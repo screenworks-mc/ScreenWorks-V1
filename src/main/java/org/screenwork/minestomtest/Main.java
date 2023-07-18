@@ -16,7 +16,6 @@ import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
-import org.screenwork.minestomtest.commands.BanCMD;
 
 public class Main {
 
@@ -28,14 +27,13 @@ public class Main {
 
         // Set the brand name
         MinecraftServer.setBrandName("ScreenWork - V1");
-
+        
         // Create the instance
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
 
         // Set the ChunkGenerator
         instanceContainer.setGenerator(unit ->
-                unit.modifier().fillHeight(0, 40, Block.DIAMOND_BLOCK));
-
+                unit.modifier().fillHeight(0, 40, Block.GRASS_BLOCK));
 
         // Add an event callback to specify the spawning instance (and the spawn position)
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
