@@ -95,6 +95,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new MessageCMD());
         MinecraftServer.getCommandManager().register(new WorldTP());
         MinecraftServer.getCommandManager().register(new WorldManagerCMD());
+        MinecraftServer.getCommandManager().register(new SetBlockCMD());
 
     }
 }
