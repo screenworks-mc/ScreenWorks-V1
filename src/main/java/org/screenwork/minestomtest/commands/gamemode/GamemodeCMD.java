@@ -35,7 +35,7 @@ public class GamemodeCMD extends Command {
             final GameMode gameMode = GameMode.valueOf(gamemodeString.toUpperCase());
 
             sender.sendMessage(Component.text("Gamemode updated to ").append(Component.text(gameMode.name(), NamedTextColor.GREEN)));
-
+            sender.asPlayer().setGameMode(gameMode);
         }, gamemodeArgument);
     }
 }
