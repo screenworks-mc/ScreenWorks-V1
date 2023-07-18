@@ -15,6 +15,8 @@ dependencies {
     // WARNING: outdated version, replace it to the latest
     // Reminder: can be found at https://jitpack.io/#Minestom/Minestom
     implementation 'dev.hollowcube:minestom-ce:74ca1041f3'
+    implementation("net.dv8tion:JDA:5.0.0-beta.5")
+    implementation group: 'club.minnced', name: 'discord-webhooks', version: '0.8.2'
 }
 
 jar {
