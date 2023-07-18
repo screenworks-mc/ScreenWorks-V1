@@ -22,6 +22,8 @@ import org.screenwork.minestomtest.commands.GiveCMD;
 import org.screenwork.minestomtest.commands.moderation.KickCMD;
 import org.screenwork.minestomtest.commands.moderation.UnbanCMD;
 import org.screenwork.minestomtest.commands.worldmanager.WorldManagerCMD;
+import org.screenwork.minestomtest.events.PlayerLogin;
+import org.screenwork.minestomtest.events.ServerListPing;
 
 public class Main {
 
@@ -49,36 +51,19 @@ public class Main {
             player.setRespawnPoint(new Pos(0, 42, 0));
         });
 
-        globalEventHandler.addListener(ServerListPingEvent.class, event -> {
-            event.getResponseData().setMaxPlayer(100);
-            event.getResponseData().setDescription("ScreenWork Minecraft Server");
-            event.getResponseData().setOnline(18);
-            event.getResponseData().addPlayer("play.screenwork.net");
-            event.getResponseData().setVersion("1.20.1");
-        });
+        new PlayerLogin();
+        new ServerListPing();
+
 
         // Start the server on port 25566
         minecraftServer.start("0.0.0.0", 25566);
-
-        globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
-            event.getPlayer().setGameMode(GameMode.CREATIVE);
-            System.out.println("[+] " + event.getPlayer().getUsername());
-        });
-
-        globalEventHandler.addListener(PlayerSkinInitEvent.class, event -> {
-            PlayerSkin skin = PlayerSkin.fromUsername(event.getPlayer().getUsername());
-            event.setSkin(skin);
-        });
 
         globalEventHandler.addListener(PlayerCommandEvent.class, event -> {
             //Make actual logger later
             System.out.println(event.getPlayer().getUsername() + " ran: /" + event.getCommand());
         });
 
-        globalEventHandler.addListener(PlayerChatEvent.class, event -> {
-            //Make actual logger later
-            System.out.println("<" + event.getPlayer().getUsername() + "> " + event.getMessage());
-        });
+
 
         MinecraftServer.getCommandManager().register(new GamemodeCMD());
         MinecraftServer.getCommandManager().register(new GamemodeAliasCMD());
