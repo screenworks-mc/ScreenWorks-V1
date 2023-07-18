@@ -10,9 +10,11 @@ import net.minestom.server.event.player.PlayerChatEvent;
 import net.minestom.server.event.player.PlayerCommandEvent;
 import net.minestom.server.event.player.PlayerLoginEvent;
 import net.minestom.server.event.player.PlayerSkinInitEvent;
+import net.minestom.server.event.server.ServerListPingEvent;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.ping.ServerListPingType;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
@@ -41,6 +43,14 @@ public class Main {
             final Player player = event.getPlayer();
             event.setSpawningInstance(instanceContainer);
             player.setRespawnPoint(new Pos(0, 42, 0));
+        });
+
+        globalEventHandler.addListener(ServerListPingEvent.class, event -> {
+            event.getResponseData().setMaxPlayer(100);
+            event.getResponseData().setDescription("ScreenWork Minecraft Server");
+            event.getResponseData().setOnline(18);
+            event.getResponseData().addPlayer("play.screenwork.net");
+            event.getResponseData().setVersion("Example");
         });
 
         // Start the server on port 25566
@@ -76,6 +86,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new KickCMD());
         MinecraftServer.getCommandManager().register(new BanCMD());
         MinecraftServer.getCommandManager().register(new UnbanCMD());
+        MinecraftServer.getCommandManager().register(new ToBlockCMD());
 
     }
 }
