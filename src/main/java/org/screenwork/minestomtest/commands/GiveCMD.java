@@ -24,19 +24,19 @@ public class GiveCMD extends Command {
         });
 
         //Cleaning up later
+        List<String> itemswithnamespace = new java.util.ArrayList<>(List.of(new String[]{}));
         List<String> items = new java.util.ArrayList<>(List.of(new String[]{}));
 
-        for (Material value : Material.values()) {
-            items.add(value.name());
-        }
+        for (Material value : Material.values())
+            itemswithnamespace.add(value.name());
+
+        for (Material value : Material.values())
+            items.add(value.name().replace("minecraft:", ""));
+
+        items.addAll(itemswithnamespace);
 
         var giveArgument = ArgumentType.Word("give").from(items.toArray(new String[0]));
 
-        giveArgument.setSuggestionCallback((sender, context, suggestion) -> {
-            for (GameMode gameMode : GameMode.values()) {
-                suggestion.addEntry(new SuggestionEntry(gameMode.name()));
-            }
-        });
 
         addSyntax((sender, context) -> {
 
