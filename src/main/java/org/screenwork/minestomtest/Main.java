@@ -84,6 +84,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new WorldManagerCMD());
         MinecraftServer.getCommandManager().register(new SetBlockCMD());
         MinecraftServer.getCommandManager().register(new WandCMD());
+        MinecraftServer.getCommandManager().register(new UpCMD());
 
 
     }
