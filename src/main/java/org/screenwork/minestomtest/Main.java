@@ -10,6 +10,7 @@ import net.minestom.server.event.player.*;
 import net.minestom.server.event.server.ServerListPingEvent;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
+import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.worldedit.*;
@@ -49,12 +50,12 @@ public class Main {
 
         // Set the ChunkGenerator
         instanceContainer.setGenerator(unit ->
-                unit.modifier().fillHeight(39, 40, Block.GLOWSTONE));
-
+                unit.modifier().fillHeight(39, 40, Block.GRASS_BLOCK));
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             final Player player = event.getPlayer();
             event.setSpawningInstance(instanceContainer);
+            instanceContainer.setChunkSupplier(LightingChunk::new);
             player.setRespawnPoint(new Pos(0, 42, 0));
         });
 
