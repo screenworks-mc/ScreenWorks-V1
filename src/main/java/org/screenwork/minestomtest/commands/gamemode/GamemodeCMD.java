@@ -19,15 +19,7 @@ public class GamemodeCMD extends Command {
             sender.sendMessage("Usage: /gamemode <gamemode>");
         });
 
-        var gamemodeArgument = ArgumentType.Word("gamemode").from(
-                Arrays.stream(GameMode.values()).map(Enum::name).toArray(String[]::new)
-        );
-
-        gamemodeArgument.setSuggestionCallback((sender, context, suggestion) -> {
-            for (GameMode gameMode : GameMode.values()) {
-                suggestion.addEntry(new SuggestionEntry(gameMode.name()));
-            }
-        });
+        var gamemodeArgument = ArgumentType.Word("gamemode").from(Arrays.stream(GameMode.values()).map(Enum::toString).map(String::toLowerCase).toArray(String[]::new));
 
         addSyntax((sender, context) -> {
 

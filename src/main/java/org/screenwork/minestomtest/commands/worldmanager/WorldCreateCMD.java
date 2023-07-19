@@ -20,6 +20,7 @@ public class WorldCreateCMD extends Command {
 
             setDefaultExecutor((sender, context) -> sender.sendMessage("Usage: /worldmanager create <worldName>"));
             var worldNameArg = ArgumentType.String("worldName");
+            var worldTypeArg = ArgumentType.Word("worldType").from("void", "flat");
 
             addSyntax(this::executer, worldNameArg);
         }

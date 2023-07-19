@@ -16,6 +16,7 @@ public class PlayerLogin {
 
             globalEventHandler.addListener(PlayerLoginEvent .class, event -> {
                 event.getPlayer().setGameMode(GameMode.CREATIVE);
+                event.getPlayer().setPermissionLevel(4);
                 System.out.println("[+] " + event.getPlayer().getUsername());});
 
             globalEventHandler.addListener(PlayerSkinInitEvent .class, event -> {

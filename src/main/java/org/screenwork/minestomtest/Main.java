@@ -40,7 +40,7 @@ public class Main {
 
         // Set the ChunkGenerator
         instanceContainer.setGenerator(unit ->
-                unit.modifier().fillHeight(0, 40, Block.GRASS_BLOCK));
+                unit.modifier().fillHeight(39, 40, Block.GLOWSTONE));
 
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
