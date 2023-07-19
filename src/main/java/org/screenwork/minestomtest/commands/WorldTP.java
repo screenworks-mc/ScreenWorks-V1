@@ -5,6 +5,7 @@ import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.CommandContext;
 import net.minestom.server.command.builder.arguments.ArgumentType;
+import net.minestom.server.command.builder.suggestion.SuggestionEntry;
 import net.minestom.server.entity.Player;
 import net.minestom.server.instance.Instance;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +18,10 @@ public class WorldTP extends Command {
         setDefaultExecutor((sender, context) -> sender.sendMessage("Usage: /worldtp <world>"));
 
         var worldArg = ArgumentType.String("world");
+
+        worldArg.setSuggestionCallback((sender, context, suggestion) -> {
+            MinecraftServer.getInstanceManager().getInstances().forEach(instance -> suggestion.addEntry(new SuggestionEntry(instance.getDimensionName().replaceAll("minecraft:", "").replaceAll("screenwork:", ""))));
+        });
 
         addSyntax(this::execute, worldArg);
     }
