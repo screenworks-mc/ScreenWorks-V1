@@ -31,12 +31,10 @@ import org.slf4j.spi.SLF4JServiceProvider;
 
 public class Main {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
 
     public static void main(String[] arguments) {
-
-        logger.info("Example log from {}", Main.class.getSimpleName());
 
         // Initialization
         MinecraftServer minecraftServer = MinecraftServer.init();
