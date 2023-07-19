@@ -8,6 +8,7 @@ import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.*;
 import net.minestom.server.event.server.ServerListPingEvent;
+import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.LightingChunk;
@@ -46,6 +47,7 @@ public class Main {
         MinecraftServer.setBrandName("ScreenWork - V1");
 
         // Create the instance
+
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
 
         // Set the ChunkGenerator
@@ -73,6 +75,7 @@ public class Main {
             System.out.println(event.getPlayer().getUsername() + " ran: /" + event.getCommand());
         });
 
+
     }
 
     private static void setupCommands() {
@@ -95,6 +98,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new SetBlockCMD());
         MinecraftServer.getCommandManager().register(new WandCMD());
         MinecraftServer.getCommandManager().register(new UpCMD());
+        MinecraftServer.getCommandManager().register(new StopCMD());
 
 
     }
