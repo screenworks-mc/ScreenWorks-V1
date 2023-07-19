@@ -24,8 +24,15 @@ public class RebuildLightCacheCommand extends Command {
     private void execute(@NotNull CommandSender commandSender, @NotNull CommandContext commandContext) {
         Player player = (Player) commandSender;
         Instance currentPlayerInstance = player.getInstance();
+
         player.sendMessage(Component.text("Light cache has been rebuilt.", NamedTextColor.YELLOW));
+        //LightingChunk.relight(currentPlayerInstance, currentPlayerInstance.getChunks());
+        for(Chunk chunk : currentPlayerInstance.getChunks()) {
+            LightingChunk lightingChunk = (LightingChunk) chunk;
+            lightingChunk.sendLighting();
+        }
         currentPlayerInstance.setChunkSupplier(LightingChunk::new);
+
         System.out.println(player.getUsername() + " rebuilt the light cache.");
     }
 }
