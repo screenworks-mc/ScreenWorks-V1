@@ -43,7 +43,7 @@ public class Main {
 
         // Set the brand name
         MinecraftServer.setBrandName("ScreenWork - V1");
-        
+
         // Create the instance
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
 
@@ -58,16 +58,10 @@ public class Main {
             player.setRespawnPoint(new Pos(0, 42, 0));
         });
 
-
         new PlayerLogin();
         new ServerListPing();
         new WorldEditEvents();
         setupCommands();
-
-
-
-
-
 
 
         // Start the server on port 25566
