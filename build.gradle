@@ -18,6 +18,10 @@ dependencies {
     implementation 'dev.hollowcube:minestom-ce:74ca1041f3'
     implementation("net.dv8tion:JDA:5.0.0-beta.5")
     implementation group: 'club.minnced', name: 'discord-webhooks', version: '0.8.2'
+    implementation 'ch.qos.logback:logback-core:1.3.5'
+    testImplementation 'org.slf4j:slf4j-api:2.0.4'
+    //test dependency
+    implementation 'ch.qos.logback:logback-classic:1.3.5'
 }
 
 jar {

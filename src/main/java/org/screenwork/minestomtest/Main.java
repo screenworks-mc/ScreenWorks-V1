@@ -22,10 +22,21 @@ import org.screenwork.minestomtest.commands.moderation.UnbanCMD;
 import org.screenwork.minestomtest.commands.worldmanager.WorldManagerCMD;
 import org.screenwork.minestomtest.events.PlayerLogin;
 import org.screenwork.minestomtest.events.ServerListPing;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.IMarkerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.spi.MDCAdapter;
+import org.slf4j.spi.SLF4JServiceProvider;
 
 public class Main {
 
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
+
     public static void main(String[] arguments) {
+
+        logger.info("Example log from {}", Main.class.getSimpleName());
 
         // Initialization
         MinecraftServer minecraftServer = MinecraftServer.init();
@@ -49,10 +60,16 @@ public class Main {
             player.setRespawnPoint(new Pos(0, 42, 0));
         });
 
+
         new PlayerLogin();
         new ServerListPing();
         new WorldEditEvents();
         setupCommands();
+
+
+
+
+
 
 
         // Start the server on port 25566
