@@ -6,15 +6,13 @@ import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.event.player.PlayerChatEvent;
-import net.minestom.server.event.player.PlayerCommandEvent;
-import net.minestom.server.event.player.PlayerLoginEvent;
-import net.minestom.server.event.player.PlayerSkinInitEvent;
+import net.minestom.server.event.player.*;
 import net.minestom.server.event.server.ServerListPingEvent;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.*;
+import org.screenwork.minestomtest.worldedit.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
 import org.screenwork.minestomtest.commands.moderation.BanCMD;
@@ -53,6 +51,7 @@ public class Main {
 
         new PlayerLogin();
         new ServerListPing();
+        new WorldEditEvents();
         setupCommands();
 
 
@@ -84,6 +83,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new WorldTP());
         MinecraftServer.getCommandManager().register(new WorldManagerCMD());
         MinecraftServer.getCommandManager().register(new SetBlockCMD());
+        MinecraftServer.getCommandManager().register(new WandCMD());
 
 
     }
