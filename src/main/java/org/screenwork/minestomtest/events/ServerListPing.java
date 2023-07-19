@@ -8,9 +8,9 @@ public class ServerListPing {
     public ServerListPing() {
 
         MinecraftServer.getGlobalEventHandler().addListener(ServerListPingEvent.class, event -> {
-            event.getResponseData().setMaxPlayer(100);
+            event.getResponseData().setMaxPlayer(800);
             event.getResponseData().setDescription("ScreenWork Minecraft Server");
-            event.getResponseData().setOnline(18);
+            event.getResponseData().setOnline(MinecraftServer.getConnectionManager().getOnlinePlayers().size());
             event.getResponseData().addPlayer("play.screenwork.net");
             event.getResponseData().setVersion("1.20.1");
         });
