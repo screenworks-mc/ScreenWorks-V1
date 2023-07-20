@@ -14,6 +14,8 @@ import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.*;
+import org.screenwork.minestomtest.events.ItemDrop;
+import org.screenwork.minestomtest.events.ItemPickup;
 import org.screenwork.minestomtest.worldedit.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
@@ -62,6 +64,8 @@ public class Main {
         });
 
         new PlayerLogin();
+        new ItemDrop();
+        new ItemPickup();
         new ServerListPing();
         new WorldEditEvents();
         setupCommands();
@@ -99,6 +103,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new WandCMD());
         MinecraftServer.getCommandManager().register(new UpCMD());
         MinecraftServer.getCommandManager().register(new StopCMD());
+        MinecraftServer.getCommandManager().register(new DisplayCMD());
 
 
     }

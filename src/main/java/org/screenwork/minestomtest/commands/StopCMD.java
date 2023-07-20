@@ -13,15 +13,11 @@ public class StopCMD extends Command {
 
 
         addSyntax((sender, context) -> {
-
             sender.sendMessage("Stopping server...");
             Main.logger.info("Stopping server...");
-
             MinecraftServer.getInstanceManager().getInstances().forEach(Instance::saveChunksToStorage);
-
             MinecraftServer.getConnectionManager().getOnlinePlayers().forEach(player -> player.kick("Server is shutting down."));
             MinecraftServer.getServer().stop();
-
         });
 
     }
