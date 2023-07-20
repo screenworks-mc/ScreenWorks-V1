@@ -16,6 +16,7 @@ import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.events.ItemDrop;
 import org.screenwork.minestomtest.events.ItemPickup;
+import org.screenwork.minestomtest.pack.pack;
 import org.screenwork.minestomtest.worldedit.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
@@ -66,6 +67,7 @@ public class Main {
         new PlayerLogin();
         new ItemDrop();
         new ItemPickup();
+        new pack();
         new ServerListPing();
         new WorldEditEvents();
         setupCommands();
