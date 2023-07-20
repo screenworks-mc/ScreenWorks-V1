@@ -47,10 +47,9 @@ public class Main {
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
 
         // Set the brand name
-        MinecraftServer.setBrandName("ScreenWork - V1");
+        MinecraftServer.setBrandName("ScreenWork V1");
 
         // Create the instance
-
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
 
         // Set the ChunkGenerator
@@ -73,15 +72,12 @@ public class Main {
         setupCommands();
 
 
-        // Start the server on port 25566
         minecraftServer.start("0.0.0.0", 25566);
 
         globalEventHandler.addListener(PlayerCommandEvent.class, event -> {
-            //Make actual logger later
-            System.out.println(event.getPlayer().getUsername() + " ran: /" + event.getCommand());
+
+            logger.info(event.getPlayer().getUsername() + " ran: /" + event.getCommand());
         });
-
-
     }
 
     private static void setupCommands() {
