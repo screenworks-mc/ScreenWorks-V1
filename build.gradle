@@ -29,6 +29,7 @@ dependencies {
     implementation("team.unnamed:creative-api:0.7.1-SNAPSHOT")
     implementation("team.unnamed:creative-serializer-minecraft:0.7.1-SNAPSHOT")
     implementation("team.unnamed:creative-server:0.7.1-SNAPSHOT")
+    compileOnly("team.unnamed:creative-central-api:0.7.1-SNAPSHOT")
 }
 
 jar {
