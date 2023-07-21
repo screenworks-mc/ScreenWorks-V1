@@ -99,8 +99,6 @@ public class Main {
         } else {
             logger.warn("worldFolder doesn't exist!");
         }
-
-        System.out.println("test gpg");
     }
 
     private static void setupCommands() {
