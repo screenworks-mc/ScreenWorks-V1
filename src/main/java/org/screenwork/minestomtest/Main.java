@@ -21,22 +21,16 @@ import org.screenwork.minestomtest.commands.GiveCMD;
 import org.screenwork.minestomtest.commands.moderation.KickCMD;
 import org.screenwork.minestomtest.commands.moderation.UnbanCMD;
 import org.screenwork.minestomtest.commands.worldmanager.WorldManagerCMD;
-import org.slf4j.ILoggerFactory;
-import org.slf4j.IMarkerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.spi.MDCAdapter;
-import org.slf4j.spi.SLF4JServiceProvider;
 
-import java.util.UUID;
+import java.io.File;
 
 public class Main {
 
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
-
     public static void main(String[] arguments) {
-
         // Initialization
         MinecraftServer minecraftServer = MinecraftServer.init();
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
@@ -68,7 +62,6 @@ public class Main {
         new WorldEditEvents();
         setupCommands();
 
-
         minecraftServer.start("0.0.0.0", 25566);
 
         globalEventHandler.addListener(PlayerCommandEvent.class, event -> {
@@ -77,13 +70,10 @@ public class Main {
 
         globalEventHandler.addListener(PlayerChatEvent.class, event -> {
             if ((event.getMessage().startsWith("save"))) {
-                for (Instance instance :  instanceManager.getInstances()) {
-                    AnvilLoader anvil = new AnvilLoader("src/main/java/org/screenwork/minestomtest/worlds/" + instance.getUniqueId());
-                    for (Chunk chunk : instance.getChunks()) {
-                        anvil.saveChunk(chunk);
-                        System.out.println("Chunk " + chunk.getChunkX() + " " + chunk.getChunkZ() + " saved");
-                    }
-                    System.out.println("Instance " + instance.getUniqueId() + " saved");
+                for (Instance instance : instanceManager.getInstances()) {
+                    AnvilLoader anvil = new AnvilLoader("src/main/java/org/screenwork/minestomtest/instances/" + instance.getUniqueId());
+                    anvil.saveInstance(instance);
+                    logger.info("Instance " + instance.getUniqueId() + " saved");
                 }
                 event.setCancelled(true);
             }
@@ -91,7 +81,6 @@ public class Main {
     }
 
     private static void setupCommands() {
-
         MinecraftServer.getCommandManager().register(new GamemodeCMD());
         MinecraftServer.getCommandManager().register(new GamemodeAliasCMD());
         MinecraftServer.getCommandManager().register(new GiveCMD());
@@ -112,7 +101,5 @@ public class Main {
         MinecraftServer.getCommandManager().register(new UpCMD());
         MinecraftServer.getCommandManager().register(new StopCMD());
         MinecraftServer.getCommandManager().register(new DisplayCMD());
-
-
     }
 }
