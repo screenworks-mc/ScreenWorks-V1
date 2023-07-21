@@ -39,18 +39,6 @@ jobs:
       env:
         GITHUB_RUN_NUMBER: ${{ github.run_number }}
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: spaceworkv1.0.${{ github.run_number }}
-        release_name: Release spaceworkv1.0.${{ github.run_number }}
-        body: Release notes for spaceworkv1.0.${{ github.run_number }}
-        draft: false
-        prerelease: false
-
     - name: Find Shaded JAR
       id: find_jar
       run: |
