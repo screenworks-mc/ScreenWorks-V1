@@ -75,9 +75,7 @@ public class WorldCreateCMD extends Command {
         }
 
         player.setInstance(instanceContainer);
-
         instanceContainer.setChunkSupplier(LightingChunk::new);
-
         player.sendMessage("World created.");
 
 

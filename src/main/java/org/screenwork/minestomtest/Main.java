@@ -31,18 +31,14 @@ public class Main {
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] arguments) {
-        // Initialization
         MinecraftServer minecraftServer = MinecraftServer.init();
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
 
-        // Set the brand name
         MinecraftServer.setBrandName("ScreenWork V1");
 
-        // Create the instance
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
 
-        // Set the ChunkGenerator
         instanceContainer.setGenerator(unit ->
                 unit.modifier().fillHeight(39, 40, Block.GRASS_BLOCK));
 
@@ -71,7 +67,7 @@ public class Main {
         globalEventHandler.addListener(PlayerChatEvent.class, event -> {
             if ((event.getMessage().startsWith("save"))) {
                 for (Instance instance : instanceManager.getInstances()) {
-                    AnvilLoader anvil = new AnvilLoader("src/main/java/org/screenwork/minestomtest/instances/" + instance.getUniqueId());
+                    AnvilLoader anvil = new AnvilLoader("src/main/java/org/screenwork/minestomtest/instances/");
                     anvil.saveInstance(instance);
                     logger.info("Instance " + instance.getUniqueId() + " saved");
                 }
@@ -79,7 +75,7 @@ public class Main {
             }
         });
 
-        File worldsFolder = new File("src/main/java/org/screenwork/minestomtest/instances");
+        File worldsFolder = new File("src/main/java/org/screenwork/minestomtest/instances/");
         if (worldsFolder.exists() && worldsFolder.isDirectory()) {
             File[] worldFolders = worldsFolder.listFiles();
             if (worldFolders != null) {
