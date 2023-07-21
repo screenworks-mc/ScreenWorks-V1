@@ -78,6 +78,24 @@ public class Main {
                 event.setCancelled(true);
             }
         });
+
+        File worldsFolder = new File("src/main/java/org/screenwork/minestomtest/instances");
+        if (worldsFolder.exists() && worldsFolder.isDirectory()) {
+            File[] worldFolders = worldsFolder.listFiles();
+            if (worldFolders != null) {
+                for (File worldFolder : worldFolders) {
+                    if (worldFolder.isDirectory()) {
+                        InstanceContainer instanceLoader = instanceManager.createInstanceContainer();
+                        instanceLoader.setChunkLoader(new AnvilLoader(worldFolder.getAbsolutePath()));
+                        if (instanceLoader != null) {
+                            MinecraftServer.getInstanceManager().registerInstance(instanceLoader);
+                        } else {
+                            logger.warn("Failed to load instance from folder: " + worldFolder.getAbsolutePath());
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private static void setupCommands() {
