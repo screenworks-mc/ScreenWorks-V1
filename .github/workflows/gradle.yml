@@ -45,3 +45,15 @@ jobs:
       with:
         name: spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar
         path: build/libs/*-all.jar
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: spaceworkv1.0.${{ github.run_number }}
+        release_name: Release spaceworkv1.0.${{ github.run_number }}
+        body: Release notes for spaceworkv1.0.${{ github.run_number }}
+        draft: false
+        prerelease: false
