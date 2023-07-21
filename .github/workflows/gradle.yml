@@ -30,6 +30,7 @@ jobs:
         distribution: 'temurin'
     - name: Set up Gradle wrapper
       run: |
+        chmod +x gradlew  # Add execute permission to gradlew
         ./gradlew wrapper --gradle-version 7.2
     - name: Build with Gradle
       run: ./gradlew build
