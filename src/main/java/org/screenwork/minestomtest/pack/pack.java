@@ -4,6 +4,7 @@ import net.kyori.adventure.key.Key;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.event.GlobalEventHandler;
+import net.minestom.server.event.player.PlayerChatEvent;
 import net.minestom.server.event.player.PlayerLoginEvent;
 import org.screenwork.minestomtest.Main;
 import team.unnamed.creative.BuiltResourcePack;
@@ -48,6 +49,19 @@ public class pack {
                     .build();
 
             packServer.start();
+
+            String hash = pack.hash();
+            String path = hash + ".zip";
+            String url = "http://0.0.0.0:7270/" + path;
+
+            GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
+            globalEventHandler.addListener(PlayerChatEvent.class, event -> {
+                if ((event.getMessage().startsWith("pack"))) {
+                    event.setCancelled(true);
+                }
+                event.getPlayer().setResourcePack(net.minestom.server.resourcepack.ResourcePack.forced(url, hash));
+            });
+
         } catch (IOException e) {
             e.printStackTrace();
         }
