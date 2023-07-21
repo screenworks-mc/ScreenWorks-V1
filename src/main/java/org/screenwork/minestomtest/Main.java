@@ -67,7 +67,7 @@ public class Main {
         globalEventHandler.addListener(PlayerChatEvent.class, event -> {
             if ((event.getMessage().startsWith("save"))) {
                 for (Instance instance :  instanceManager.getInstances()) {
-                    AnvilLoader anvil = new AnvilLoader("src/main/java/org/screenwork/minestomtest/instances/" + instance.getUniqueId());
+                    AnvilLoader anvil = new AnvilLoader("src/main/java/org/screenwork/minestomtest/instances/instance" + instance.getUniqueId());
                     for (Chunk chunk : instance.getChunks()) {
                         anvil.saveChunk(chunk);
                         System.out.println("Chunk " + chunk.getChunkX() + " " + chunk.getChunkZ() + " saved");
