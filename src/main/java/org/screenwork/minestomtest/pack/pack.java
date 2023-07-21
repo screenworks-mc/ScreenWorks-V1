@@ -24,13 +24,14 @@ public class pack {
 
     public pack() {
         try {
-            Textures();
             ResourcePack resourcePack = ResourcePack.create();
             resourcePack.packMeta(9, "Official pack for ScreenWorks!");
             resourcePack.icon(Writable.file(new File("src/main/java/org/screenwork/minestomtest/pack/assets/my-icon.png")));
             resourcePack.unknownFile("credits.txt", Writable.stringUtf8("ScreenWorks"));
+            Textures();
             for (Texture texture : textures) {
                 resourcePack.texture(texture);
+                System.out.println("Pack texture " +  texture.key() + " added");
             }
 
             File resourcePackFile = new File("src/main/java/org/screenwork/minestomtest/pack/resource-pack.zip");
@@ -55,12 +56,13 @@ public class pack {
 
             String hash = pack.hash();
             String path = hash + ".zip";
-            String url = "http://0.0.0.0:7270/" + path;
+            String url = "http://127.0.0.1:7270/" + path;
 
             GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
             globalEventHandler.addListener(PlayerChatEvent.class, event -> {
                 if ((event.getMessage().startsWith("pack"))) {
                     event.getPlayer().setResourcePack(net.minestom.server.resourcepack.ResourcePack.forced(url, hash));
+                    System.out.println("[PACK] " + event.getPlayer().getUsername() + " just got the pack from " + url + ".");
                     event.setCancelled(true);
                 }
             });
@@ -73,8 +75,8 @@ public class pack {
 
     public void Textures() {
         Texture texture = Texture.builder()
-                .key(Key.key("namespace", "my_texture.png"))
-                .data(Writable.file(new File("exampleTexture.png")))
+                .key(Key.key("example", "stone_sword.png"))
+                .data(Writable.file(new File("src/main/java/org/screenwork/minestomtest/pack/assets/example/stone_sword.png")))
                 .build();
 
         textures.add(texture);

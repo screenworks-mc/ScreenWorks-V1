@@ -71,7 +71,6 @@ public class BanCMD extends Command {
             System.out.println("BAN: " + target.getUsername() + " was just banned by " + sender.asPlayer().getUsername());
 
         }, playerArgument, reasonArgument);
-
     }
 
     public static String getUUID(String name) {
