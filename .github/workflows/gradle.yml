@@ -39,15 +39,9 @@ jobs:
       env:
         GITHUB_RUN_NUMBER: ${{ github.run_number }}
 
-    - name: Find Shaded JAR
-      id: find_jar
-      run: |
-        find . -name '*-all.jar' -type f -exec mv {} /github/workspace/spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar \;
-      continue-on-error: true
-
     - name: Upload Shaded JAR to Release
       id: upload_jar
       uses: actions/upload-artifact@v2
       with:
         name: spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar
-        path: spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar
+        path: build/libs/*-all.jar
