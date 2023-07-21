@@ -102,8 +102,6 @@ public class Main {
         } else {
             logger.warn("worldFolder doesn't exist!");
         }
-
-        System.out.println("testplz");
     }
 
     private static void setupCommands() {
