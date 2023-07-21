@@ -1,18 +1,13 @@
 package org.screenwork.minestomtest.pack;
 
-import net.kyori.adventure.key.Key;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.entity.GameMode;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerChatEvent;
-import net.minestom.server.event.player.PlayerLoginEvent;
-import org.screenwork.minestomtest.Main;
 import team.unnamed.creative.BuiltResourcePack;
 import team.unnamed.creative.ResourcePack;
 import team.unnamed.creative.base.Writable;
 import team.unnamed.creative.serialize.minecraft.MinecraftResourcePackWriter;
 import team.unnamed.creative.server.ResourcePackServer;
-import team.unnamed.creative.texture.Texture;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +23,7 @@ public class pack {
             ResourcePack resourcePack = ResourcePack.create();
             resourcePack.packMeta(9, "Description!");
             resourcePack.icon(Writable.file(new File("src/main/java/org/screenwork/minestomtest/pack/assets/my-icon.png")));
-            resourcePack.unknownFile("credits.txt", Writable.stringUtf8("Unnamed Team"));
+            resourcePack.unknownFile("credits.txt", Writable.stringUtf8("ScreenWorks"));
 
             File resourcePackFile = new File("src/main/java/org/screenwork/minestomtest/pack/resource-pack.zip");
             MinecraftResourcePackWriter.minecraft().writeToZipFile(resourcePackFile, resourcePack);
@@ -65,5 +60,9 @@ public class pack {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void Textures() {
+
     }
 }
