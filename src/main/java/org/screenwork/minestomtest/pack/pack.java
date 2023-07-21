@@ -57,9 +57,9 @@ public class pack {
             GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
             globalEventHandler.addListener(PlayerChatEvent.class, event -> {
                 if ((event.getMessage().startsWith("pack"))) {
+                    event.getPlayer().setResourcePack(net.minestom.server.resourcepack.ResourcePack.forced(url, hash));
                     event.setCancelled(true);
                 }
-                event.getPlayer().setResourcePack(net.minestom.server.resourcepack.ResourcePack.forced(url, hash));
             });
 
         } catch (IOException e) {
