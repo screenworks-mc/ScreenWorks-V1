@@ -1,72 +1,65 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-name: Build and Release
+name: Java CI with Gradle
 
 on:
   push:
-    branches:
-      - main
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+permissions:
+  contents: read
 
 jobs:
   build:
-    name: Build JAR
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Set up Gradle wrapper
+      run: |
+        chmod +x gradlew
+        ./gradlew wrapper --gradle-version 7.2
+    - name: Build with Gradle and Shadow
+      run: ./gradlew shadowJar
 
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: 'adopt@1.11'
+    - name: Determine Version
+      id: get_version
+      run: |
+        if [ ${{ github.run_number }} -le 9 ]; then
+          echo "1.0.${{ github.run_number }}"
+        else
+          echo "1.${{ github.run_number }}"
+        fi
+      env:
+        GITHUB_RUN_NUMBER: ${{ github.run_number }}
 
-      - name: Build with Gradle Shadow
-        run: ./gradlew shadowJar
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: spaceworkv1.0.${{ github.run_number }}
+        release_name: Release spaceworkv1.0.${{ github.run_number }}
+        body: Release notes for spaceworkv1.0.${{ github.run_number }}
+        draft: false
+        prerelease: false
 
-      - name: Get current version
-        id: get_version
-        run: echo "::set-output name=version::$(grep -oP '(?<=version = \").*(?=\")' build.gradle)"
+    - name: Find Shaded JAR
+      id: find_jar
+      run: |
+        find . -name '*-all.jar' -type f -exec mv {} /github/workspace/spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar \;
+      continue-on-error: true
 
-      - name: Calculate next version
-        id: next_version
-        run: |
-          current_version=${{ steps.get_version.outputs.version }}
-          major=$(echo $current_version | cut -d. -f1)
-          minor=$(echo $current_version | cut -d. -f2)
-          patch=$(echo $current_version | cut -d. -f3)
-
-          if [ $patch -eq 9 ]; then
-            if [ $minor -eq 9 ]; then
-              next_version="$((major+1)).0.0"
-            else
-              next_version="$major.$((minor+1)).0"
-            fi
-          else
-            next_version="$major.$minor.$((patch+1))"
-          fi
-          echo "::set-output name=next_version::$next_version"
-
-      - name: Create release and upload artifact
-        uses: softprops/action-gh-release@v1
-        with:
-          files: build/libs/*.jar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: startsWith(github.ref, 'refs/tags/')
-
-      - name: Update gradle.properties with new version
-        run: echo "version=${{ steps.next_version.outputs.next_version }}" > gradle.properties
-
-      - name: Commit and push new version
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add gradle.properties
-          git commit -m "Bump version to ${{ steps.next_version.outputs.next_version }}"
-          git push
-
+    - name: Upload Shaded JAR to Release
+      id: upload_jar
+      uses: actions/upload-artifact@v2
+      with:
+        name: spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar
+        path: spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar
