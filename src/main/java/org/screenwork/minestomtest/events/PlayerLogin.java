@@ -22,7 +22,7 @@ public class PlayerLogin {
                 if (Main.banInfo.containsKey(event.getPlayer().getUuid())) {
                     BanID banID = Main.banInfo.get(event.getPlayer().getUuid());
 
-                    event.getPlayer().kick("You are currently banned for: " + banID.getReason() + " by " + banID.getModerator() + " for " + banID.getDuration() + " more seconds.");
+                    // event.getPlayer().kick("You are currently banned for: " + banID.getReason() + " by " + banID.getModerator() + " for " + banID.getDuration() + " more seconds.");
 
                 }
 

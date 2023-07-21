@@ -55,10 +55,10 @@ public class BanCMD extends Command {
             UUID uuid = UUID.fromString(getUUID(targetArg));
 
 
-            if (Main.banInfo.get()) {
+            /* if (Main.banInfo.get()) {
                 sender.sendMessage("That player is already banned!");
                 return;
-            }
+            } */
 
             final Player target = MinecraftServer.getConnectionManager().findPlayer(targetArg);
 
@@ -67,7 +67,7 @@ public class BanCMD extends Command {
 
             sender.sendMessage("You just banned " + target.getUsername() + " for \"" + context.get(reasonArgument) + "\".");
 
-            System.out.println("Ban List: " + playerBans);
+            // System.out.println("Ban List: " + playerBans);
             System.out.println("BAN: " + target.getUsername() + " was just banned by " + sender.asPlayer().getUsername());
 
         }, playerArgument, reasonArgument);
@@ -78,7 +78,7 @@ public class BanCMD extends Command {
         String uuid = "";
         try {
             var a = new BufferedReader(new InputStreamReader(new URL("https://api.mojang.com/users/profiles/minecraft/" + name).openStream()));
-            uuid = (((JsonObject)new JsonParser().parse(in)).get("id")).toString().replaceAll("\"", "");
+            // uuid = (((JsonObject)new JsonParser().parse(in)).get("id")).toString().replaceAll("\"", "");
             uuid = uuid.replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5");
             a.close();
         } catch (Exception e) {

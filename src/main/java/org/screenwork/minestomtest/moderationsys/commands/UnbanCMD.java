@@ -16,16 +16,16 @@ public class UnbanCMD extends Command {
         var playerArgument = ArgumentType.String("playertounban");
 
         playerArgument.setSuggestionCallback((sender, context, suggestion) -> {
-            for (String string : BanCMD.playerBans) {
+            /* for (String string : BanCMD.playerBans) {
                 suggestion.addEntry(new SuggestionEntry(string));
-            }
+            } */
         });
 
         addSyntax((sender, context) -> {
 
             final String string = context.get(playerArgument);
 
-            BanCMD.playerBans.remove(string);
+            // BanCMD.playerBans.remove(string);
             sender.sendMessage("You just pardoned " + string + ".");
 
 
