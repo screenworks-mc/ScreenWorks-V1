@@ -122,6 +122,5 @@ public class Main {
         MinecraftServer.getCommandManager().register(new UpCMD());
         MinecraftServer.getCommandManager().register(new StopCMD());
         MinecraftServer.getCommandManager().register(new DisplayCMD());
-        MinecraftServer.getCommandManager().register(new TpsCMD());
     }
 }
