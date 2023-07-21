@@ -57,3 +57,5 @@ jobs:
         body: Release notes for spaceworkv1.0.${{ github.run_number }}
         draft: false
         prerelease: false
+        files: |
+          spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar
