@@ -16,6 +16,7 @@ public class ItemDrop {
 
         MinecraftServer.getGlobalEventHandler().addListener(ItemDropEvent.class, event -> {
             ItemStack itemInMainHand = event.getPlayer().getItemInMainHand();
+
             if (!itemInMainHand.isAir()) {
                 Player player = event.getPlayer();
                 ItemStack droppedItem = event.getItemStack();
