@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+
     // Minestom Dependencies
     implementation 'dev.hollowcube:minestom-ce:74ca1041f3'
     implementation("net.dv8tion:JDA:5.0.0-beta.5")
@@ -29,6 +31,7 @@ dependencies {
     implementation("team.unnamed:creative-api:0.7.1-SNAPSHOT")
     implementation("team.unnamed:creative-serializer-minecraft:0.7.1-SNAPSHOT")
     implementation("team.unnamed:creative-server:0.7.1-SNAPSHOT")
+
     compileOnly("team.unnamed:creative-central-api:0.7.1-SNAPSHOT")
 }
 

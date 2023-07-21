@@ -11,7 +11,6 @@ public class StopCMD extends Command {
 
         super("stop");
 
-
         addSyntax((sender, context) -> {
             sender.sendMessage("Stopping server...");
             Main.logger.info("Stopping server...");

@@ -2,33 +2,34 @@ package org.screenwork.minestomtest;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
-import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
-import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.*;
-import net.minestom.server.event.server.ServerListPingEvent;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.events.*;
+import org.screenwork.minestomtest.moderationsys.profile.BanID;
 import org.screenwork.minestomtest.pack.pack;
 import org.screenwork.minestomtest.worldedit.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
-import org.screenwork.minestomtest.commands.moderation.BanCMD;
+import org.screenwork.minestomtest.moderationsys.commands.BanCMD;
 import org.screenwork.minestomtest.commands.GiveCMD;
-import org.screenwork.minestomtest.commands.moderation.KickCMD;
-import org.screenwork.minestomtest.commands.moderation.UnbanCMD;
+import org.screenwork.minestomtest.moderationsys.commands.KickCMD;
+import org.screenwork.minestomtest.moderationsys.commands.UnbanCMD;
 import org.screenwork.minestomtest.commands.worldmanager.WorldManagerCMD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class Main {
 
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
+    public static HashMap<UUID, BanID> banInfo = new HashMap<>();
 
     public static void main(String[] arguments) {
         MinecraftServer minecraftServer = MinecraftServer.init();
@@ -49,6 +50,8 @@ public class Main {
             player.setRespawnPoint(new Pos(0, 42, 0));
         });
 
+        new PlayerDisconnect();
+        new PlayerChat();
         new PlayerLogin();
         new ItemDrop();
         new ItemPickup();

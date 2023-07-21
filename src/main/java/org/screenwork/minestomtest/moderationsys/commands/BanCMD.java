@@ -1,4 +1,4 @@
-package org.screenwork.minestomtest.commands.moderation;
+package org.screenwork.minestomtest.moderationsys.commands;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.Command;
