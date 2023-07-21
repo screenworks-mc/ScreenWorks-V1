@@ -1,5 +1,7 @@
 package org.screenwork.minestomtest.moderationsys.commands;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.arguments.ArgumentString;
@@ -8,14 +10,19 @@ import net.minestom.server.command.builder.suggestion.SuggestionEntry;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerLoginEvent;
+import net.minestom.server.extras.MojangAuth;
+import net.minestom.server.extras.mojangAuth.MojangCrypt;
+import net.minestom.server.utils.mojang.MojangUtils;
+import org.screenwork.minestomtest.Main;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class BanCMD extends Command {
-
-    public static final List<String> playerBans = new ArrayList<String>();
-    final ArgumentString reasonArgument = ArgumentType.String("banreason");
 
     public BanCMD() {
         super("ban");
@@ -25,6 +32,8 @@ public class BanCMD extends Command {
         });
 
         var playerArgument = ArgumentType.String("target");
+        var reasonArgument = ArgumentType.String("banreason");
+
 
         playerArgument.setSuggestionCallback((sender, context, suggestion) -> {
             for (Player player : MinecraftServer.getConnectionManager().getOnlinePlayers()) {
@@ -33,16 +42,20 @@ public class BanCMD extends Command {
         });
 
         reasonArgument.setSuggestionCallback((sender, context, suggestion) -> {
-            suggestion.addEntry(new SuggestionEntry("\"Hacking\""));
-            suggestion.addEntry(new SuggestionEntry("\"Staff Disrespect\""));
-            suggestion.addEntry(new SuggestionEntry("\"Being Annoying\""));
+            suggestion.addEntry(new SuggestionEntry("\"Illegal movement modification\""));
+            suggestion.addEntry(new SuggestionEntry("\"Illegal client modification\""));
+            suggestion.addEntry(new SuggestionEntry("\"Illegal PvP/PvE modification\""));
+            suggestion.addEntry(new SuggestionEntry("\"Punishment evasion\""));
+
         });
 
         addSyntax((sender, context) -> {
 
             String targetArg = context.get(playerArgument);
+            UUID uuid = UUID.fromString(getUUID(targetArg));
 
-            if (playerBans.contains(targetArg)) {
+
+            if (Main.banInfo.get()) {
                 sender.sendMessage("That player is already banned!");
                 return;
             }
@@ -54,24 +67,24 @@ public class BanCMD extends Command {
 
             sender.sendMessage("You just banned " + target.getUsername() + " for \"" + context.get(reasonArgument) + "\".");
 
-            playerBans.add(target.getUsername());
-
             System.out.println("Ban List: " + playerBans);
             System.out.println("BAN: " + target.getUsername() + " was just banned by " + sender.asPlayer().getUsername());
 
         }, playerArgument, reasonArgument);
 
-        GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
-        globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
+    }
 
-            // System.out.println("Ban List: " + playerBans.toString());
-
-            if (playerBans.contains(event.getPlayer().getUsername())) {
-
-                event.getPlayer().kick("You are currently banned! Reason: " + reasonArgument);
-                System.out.println(event.getPlayer().getUsername() + " just tried to join, but is banned!");
-
-            }
-        });
+    public static String getUUID(String name) {
+        String uuid = "";
+        try {
+            var a = new BufferedReader(new InputStreamReader(new URL("https://api.mojang.com/users/profiles/minecraft/" + name).openStream()));
+            uuid = (((JsonObject)new JsonParser().parse(in)).get("id")).toString().replaceAll("\"", "");
+            uuid = uuid.replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5");
+            a.close();
+        } catch (Exception e) {
+            Main.logger.warn("Unable to get UUID of: " + name + "!");
+            uuid = "error";
+        }
+        return uuid;
     }
 }
