@@ -66,16 +66,19 @@ public class Main {
 
         globalEventHandler.addListener(PlayerChatEvent.class, event -> {
             if ((event.getMessage().startsWith("save"))) {
-                for (Instance instance : instanceManager.getInstances()) {
-                    AnvilLoader anvil = new AnvilLoader("src/main/java/org/screenwork/minestomtest/instances/");
-                    anvil.saveInstance(instance);
-                    logger.info("Instance " + instance.getUniqueId() + " saved");
+                for (Instance instance :  instanceManager.getInstances()) {
+                    AnvilLoader anvil = new AnvilLoader("src/main/java/org/screenwork/minestomtest/instances/" + instance.getUniqueId());
+                    for (Chunk chunk : instance.getChunks()) {
+                        anvil.saveChunk(chunk);
+                        System.out.println("Chunk " + chunk.getChunkX() + " " + chunk.getChunkZ() + " saved");
+                    }
+                    System.out.println("Instance " + instance.getUniqueId() + " saved");
                 }
                 event.setCancelled(true);
             }
         });
 
-        File worldsFolder = new File("src/main/java/org/screenwork/minestomtest/instances/");
+        File worldsFolder = new File("src/main/java/org/screenwork/minestomtest/instances");
         if (worldsFolder.exists() && worldsFolder.isDirectory()) {
             File[] worldFolders = worldsFolder.listFiles();
             if (worldFolders != null) {
@@ -90,7 +93,11 @@ public class Main {
                         }
                     }
                 }
+            } else {
+                logger.warn("worldFolders is null!");
             }
+        } else {
+            logger.warn("worldFolder doesn't exist!");
         }
     }
 
