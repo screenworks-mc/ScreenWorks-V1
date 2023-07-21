@@ -8,10 +8,7 @@ import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.*;
 import net.minestom.server.event.server.ServerListPingEvent;
-import net.minestom.server.instance.Instance;
-import net.minestom.server.instance.InstanceContainer;
-import net.minestom.server.instance.InstanceManager;
-import net.minestom.server.instance.LightingChunk;
+import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.events.*;
@@ -30,6 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.spi.MDCAdapter;
 import org.slf4j.spi.SLF4JServiceProvider;
+
+import java.util.UUID;
 
 public class Main {
 
@@ -73,8 +72,21 @@ public class Main {
         minecraftServer.start("0.0.0.0", 25566);
 
         globalEventHandler.addListener(PlayerCommandEvent.class, event -> {
-
             logger.info(event.getPlayer().getUsername() + " ran: /" + event.getCommand());
+        });
+
+        globalEventHandler.addListener(PlayerChatEvent.class, event -> {
+            if ((event.getMessage().startsWith("save"))) {
+                for (Instance instance :  instanceManager.getInstances()) {
+                    AnvilLoader anvil = new AnvilLoader("src/main/java/org/screenwork/minestomtest/worlds/" + instance.getUniqueId());
+                    for (Chunk chunk : instance.getChunks()) {
+                        anvil.saveChunk(chunk);
+                        System.out.println("Chunk " + chunk.getChunkX() + " " + chunk.getChunkZ() + " saved");
+                    }
+                    System.out.println("Instance " + instance.getUniqueId() + " saved");
+                }
+                event.setCancelled(true);
+            }
         });
     }
 
