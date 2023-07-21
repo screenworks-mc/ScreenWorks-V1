@@ -4,7 +4,6 @@
 # documentation.
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
 name: Java CI with Gradle
 
 on:
@@ -30,7 +29,44 @@ jobs:
         distribution: 'temurin'
     - name: Set up Gradle wrapper
       run: |
-        chmod +x gradlew  # Add execute permission to gradlew
+        chmod +x gradlew
         ./gradlew wrapper --gradle-version 7.2
     - name: Build with Gradle
       run: ./gradlew build
+
+    - name: Determine Version
+      id: get_version
+      run: |
+        if [ ${{ github.run_number }} -le 9 ]; then
+          echo "1.0.${{ github.run_number }}"
+        else
+          echo "1.${{ github.run_number }}"
+        fi
+      env:
+        GITHUB_RUN_NUMBER: ${{ github.run_number }}
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: spaceworkv1.0.${{ github.run_number }}
+        release_name: Release spaceworkv1.0.${{ github.run_number }}
+        body: Release notes for spaceworkv1.0.${{ github.run_number }}
+        draft: false
+        prerelease: false
+
+    - name: Find JAR
+      id: find_jar
+      run: |
+        find . -name '*.jar' -type f -exec mv {} /github/workspace \;
+        mv /github/workspace/build/libs/*.jar /github/workspace
+      continue-on-error: true
+
+    - name: Upload JAR to Release
+      id: upload_jar
+      uses: actions/upload-artifact@v2
+      with:
+        name: spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar
+        path: spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar
