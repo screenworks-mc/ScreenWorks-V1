@@ -1,5 +1,6 @@
 package org.screenwork.minestomtest;
 
+import com.google.gson.stream.JsonReader;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
@@ -126,5 +127,6 @@ public class Main {
         MinecraftServer.getCommandManager().register(new StopCMD());
         MinecraftServer.getCommandManager().register(new DisplayCMD());
         MinecraftServer.getCommandManager().register(new TpsCMD());
+        MinecraftServer.getCommandManager().register(new ServerStatsCMD());
     }
 }
