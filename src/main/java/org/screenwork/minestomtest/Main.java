@@ -1,6 +1,7 @@
 package org.screenwork.minestomtest;
 
 import com.google.gson.stream.JsonReader;
+import net.hollowcube.polar.PolarLoader;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
@@ -24,6 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -32,7 +35,7 @@ public class Main {
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
     public static HashMap<UUID, BanID> banInfo = new HashMap<>();
 
-    public static void main(String[] arguments) {
+    public static void main(String[] arguments) throws IOException {
         MinecraftServer minecraftServer = MinecraftServer.init();
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
@@ -40,7 +43,7 @@ public class Main {
         MinecraftServer.setBrandName("ScreenWork V1");
 
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
-
+        // PolarLoader polar = (new PolarLoader(Path.of("src/main/java/org/screenwork/minestomtest/commands/instances")));
         instanceContainer.setGenerator(unit ->
                 unit.modifier().fillHeight(39, 40, Block.GRASS_BLOCK));
 
@@ -70,39 +73,9 @@ public class Main {
 
         globalEventHandler.addListener(PlayerChatEvent.class, event -> {
             if ((event.getMessage().startsWith("save"))) {
-                for (Instance instance :  instanceManager.getInstances()) {
-                    AnvilLoader anvil = new AnvilLoader("src/main/java/org/screenwork/minestomtest/instances/instance" + instance.getUniqueId());
-                    for (Chunk chunk : instance.getChunks()) {
-                        anvil.saveChunk(chunk);
-                        System.out.println("Chunk " + chunk.getChunkX() + " " + chunk.getChunkZ() + " saved");
-                    }
-                    System.out.println("Instance " + instance.getUniqueId() + " saved");
-                }
-                event.setCancelled(true);
+                instanceContainer.saveChunksToStorage();
             }
         });
-
-        File worldsFolder = new File("src/main/java/org/screenwork/minestomtest/instances");
-        if (worldsFolder.exists() && worldsFolder.isDirectory()) {
-            File[] worldFolders = worldsFolder.listFiles();
-            if (worldFolders != null) {
-                for (File worldFolder : worldFolders) {
-                    if (worldFolder.isDirectory()) {
-                        InstanceContainer instanceLoader = instanceManager.createInstanceContainer();
-                        instanceLoader.setChunkLoader(new AnvilLoader(worldFolder.getAbsolutePath()));
-                        if (instanceLoader != null) {
-                            MinecraftServer.getInstanceManager().registerInstance(instanceLoader);
-                        } else {
-                            logger.warn("Failed to load instance from folder: " + worldFolder.getAbsolutePath());
-                        }
-                    }
-                }
-            } else {
-                logger.warn("worldFolders is null!");
-            }
-        } else {
-            logger.warn("worldFolder doesn't exist!");
-        }
     }
 
     private static void setupCommands() {

@@ -35,7 +35,6 @@ public class RebuildLightCacheCommand extends Command {
         }
 
         currentPlayerInstance.setChunkSupplier(LightingChunk::new);
-
         System.out.println(player.getUsername() + " rebuilt the light cache.");
     }
 }
