@@ -49,6 +49,9 @@ public class Main {
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             final Player player = event.getPlayer();
+            if (event.getPlayer().getUsername().equals("xDadx")) {
+                event.getPlayer().kick("L");
+            }
             event.setSpawningInstance(instanceContainer);
             instanceContainer.setChunkSupplier(LightingChunk::new);
             player.setRespawnPoint(new Pos(0, 42, 0));
