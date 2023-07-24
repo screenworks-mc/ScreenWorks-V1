@@ -10,6 +10,7 @@ import net.minestom.server.event.player.*;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.*;
+import org.screenwork.minestomtest.space.lightspeed;
 import org.screenwork.minestomtest.events.*;
 import org.screenwork.minestomtest.moderationsys.profile.BanID;
 import org.screenwork.minestomtest.pack.pack;
@@ -45,7 +46,7 @@ public class Main {
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
         // PolarLoader polar = (new PolarLoader(Path.of("src/main/java/org/screenwork/minestomtest/commands/instances")));
         instanceContainer.setGenerator(unit ->
-                unit.modifier().fillHeight(39, 40, Block.GRASS_BLOCK));
+                unit.modifier().fillHeight(39, 40, Block.DIAMOND_BLOCK));
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             final Player player = event.getPlayer();
@@ -104,5 +105,6 @@ public class Main {
         MinecraftServer.getCommandManager().register(new DisplayCMD());
         MinecraftServer.getCommandManager().register(new TpsCMD());
         MinecraftServer.getCommandManager().register(new ServerStatsCMD());
+        MinecraftServer.getCommandManager().register(new lightspeed());
     }
 }
