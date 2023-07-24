@@ -58,26 +58,65 @@ public class lightspeed extends Command {
     }
 
     private void spawnStarsAroundPlayer(Entity player) {
-        Random random = new Random();
         Pos playerPosition = player.getPosition();
 
-        int numStars = 100;
+        int numStars = 200; // Increase the number of stars for a denser appearance
+        double sphereRadius = 10.0; // Adjust the radius of the sphere
+        Random random = new Random();
 
         for (int i = 0; i < numStars; i++) {
-            double distance = 50.0;
-            double angle = random.nextDouble() * Math.PI * 2.0;
-            double x = playerPosition.blockX() + distance * Math.cos(angle);
-            double y = playerPosition.blockY() + random.nextDouble() * 10.0 - 5.0;
-            double z = playerPosition.blockZ() + distance * Math.sin(angle);
+            // Calculate spherical coordinates for each star
+            double inclination = Math.acos(2 * random.nextDouble() - 1); // Random inclination angle (0 to pi)
+            double azimuth = 2 * Math.PI * random.nextDouble(); // Random azimuth angle (0 to 2*pi)
 
-            ParticlePacket particle = ParticleCreator.createParticlePacket(Particle.DUST, true, x, y, z, 0f, 0f, 0f, 0, 1, writer -> {
-                writer.writeFloat(0.3f);
-                writer.writeFloat(0.3f);
-                writer.writeFloat(0.3f);
-                writer.writeFloat(0.3f);
-            });
+            // Convert spherical coordinates to Cartesian coordinates
+            double x = playerPosition.x() + sphereRadius * Math.sin(inclination) * Math.cos(azimuth);
+            double y = playerPosition.y() + sphereRadius * Math.cos(inclination);
+            double z = playerPosition.z() + sphereRadius * Math.sin(inclination) * Math.sin(azimuth);
 
-            player.sendPacketToViewersAndSelf(particle);
+            // Apply random Y offset to distribute stars across different heights
+            double yOffset = random.nextDouble() * 4.0; // Random offset between 0 and 4 blocks
+            y += yOffset;
+
+            // Randomize shooting star's properties
+            int duration = random.nextInt(40) + 20; // Random duration between 20 and 60
+
+            // Calculate motion vector for the shooting star
+            double dx = playerPosition.x() - x;
+            double dy = playerPosition.y() - y;
+            double dz = playerPosition.z() - z;
+
+            double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+            double speed = 0.2; // Adjust the speed for the stars' motion
+
+            double motionX = speed * dx / distance;
+            double motionY = speed * dy / distance;
+            double motionZ = speed * dz / distance;
+
+            // Adjust the colors for the stars and fading tails
+            float red = random.nextFloat();
+            float green = random.nextFloat();
+            float blue = random.nextFloat();
+            float alpha = 1.0f;
+
+            // Spawn particles to create the star and its fading tail
+            for (int j = 0; j < duration; j++) {
+                double tailX = x - motionX * j * 2;
+                double tailY = y - motionY * j * 2;
+                double tailZ = z - motionZ * j * 2;
+
+                float tailAlpha = alpha * (1.0f - (float) j / duration); // Fade out the tail
+
+                ParticlePacket starParticle = ParticleCreator.createParticlePacket(Particle.DUST, true,
+                        tailX, tailY, tailZ, 0, 0, 0, 1, 0, writer -> {
+                            writer.writeFloat(red);
+                            writer.writeFloat(green);
+                            writer.writeFloat(blue);
+                            writer.writeFloat(tailAlpha);
+                        });
+
+                player.sendPacketToViewersAndSelf(starParticle);
+            }
         }
     }
 }
