@@ -10,6 +10,8 @@ import net.minestom.server.event.player.*;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
 import org.screenwork.minestomtest.commands.*;
+import org.screenwork.minestomtest.space.AttributeEvents;
+import org.screenwork.minestomtest.space.Attributes;
 import org.screenwork.minestomtest.space.lightspeed;
 import org.screenwork.minestomtest.events.*;
 import org.screenwork.minestomtest.moderationsys.profile.BanID;
@@ -67,6 +69,8 @@ public class Main {
         new pack();
         new ServerListPing();
         new WorldEditEvents();
+        new Attributes();
+        System.out.println("Attributes class instantiated");
         setupCommands();
 
         minecraftServer.start("0.0.0.0", 25566);

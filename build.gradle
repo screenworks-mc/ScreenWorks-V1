@@ -35,6 +35,9 @@ dependencies {
 
     // Polar World Formatting
     implementation 'dev.hollowcube:polar:1.3.1'
+
+    // JSON
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
 
 jar {
