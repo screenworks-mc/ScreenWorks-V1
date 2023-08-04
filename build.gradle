@@ -38,6 +38,9 @@ dependencies {
 
     // JSON
     implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Hollow Cube Commons Schem Loader
+    implementation("com.github.hollow-cube.common:schem:db5eab9512")
 }
 
 jar {

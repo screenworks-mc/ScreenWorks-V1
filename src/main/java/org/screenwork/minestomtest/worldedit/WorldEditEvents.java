@@ -13,36 +13,42 @@ import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WorldEditEvents {
 
-    HashMap<Player, Point> pos1 = new HashMap<>();
-    HashMap<Player, Point> pos2 = new HashMap<>();
+    private final Map<Player, Point> pos1 = new HashMap<>();
+    private final Map<Player, Point> pos2 = new HashMap<>();
+    private final Map<Player, AtomicBoolean> hasProcessedRightClickMap = new HashMap<>(); // Map to associate the flag with each player
 
     public WorldEditEvents() {
-
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
         ItemStack wand = ItemStack.builder(Material.WOODEN_AXE)
                 .displayName(Component.text("Wand"))
+                .lore(Component.text("Left click to set position #1"))
+                .lore(Component.text("Right click to set position #2"))
                 .build();
 
         globalEventHandler.addListener(PlayerBlockBreakEvent.class, event -> {
             if (event.getPlayer().getInventory().getItemInMainHand().material().equals(Material.WOODEN_AXE)) {
                 event.setCancelled(true);
-                Point pos1 = event.getBlockPosition();
-                event.getPlayer().sendMessage(Component.text("MBR: Position #1 set to ").append(Component.text("(" + pos1.x() + ", " +pos1.y() + ", " + pos1.z() + ")", NamedTextColor.GREEN)));
+                Point position = event.getBlockPosition();
+                pos1.put(event.getPlayer(), position);
+                event.getPlayer().sendMessage(Component.text("MBR: Position #1 set to ").append(Component.text("(" + position.x() + ", " + position.y() + ", " + position.z() + ")", NamedTextColor.GREEN)));
             }
         });
 
-
-        AtomicBoolean hasProcessedRightClick = new AtomicBoolean(false);
         globalEventHandler.addListener(PlayerBlockInteractEvent.class, event -> {
             if (event.getPlayer().getInventory().getItemInMainHand().material().equals(Material.WOODEN_AXE)) {
+                Player player = event.getPlayer();
+                AtomicBoolean hasProcessedRightClick = hasProcessedRightClickMap.computeIfAbsent(player, p -> new AtomicBoolean(false));
+
                 if (!hasProcessedRightClick.get()) {
                     event.setCancelled(true);
-                    Point pos2 = event.getBlockPosition();
-                    event.getPlayer().sendMessage(Component.text("MBR: Position #2 set to ").append(Component.text("(" + pos2.x() + ", " +pos2.y() + ", " + pos2.z() + ")", NamedTextColor.GREEN)));
+                    Point position = event.getBlockPosition();
+                    pos2.put(player, position);
+                    player.sendMessage(Component.text("MBR: Position #2 set to ").append(Component.text("(" + position.x() + ", " + position.y() + ", " + position.z() + ")", NamedTextColor.GREEN)));
 
                     hasProcessedRightClick.set(true);
                 } else {
@@ -50,8 +56,13 @@ public class WorldEditEvents {
                 }
             }
         });
-
-
     }
 
+    public Point getPos1(Player player) {
+        return pos1.get(player);
+    }
+
+    public Point getPos2(Player player) {
+        return pos2.get(player);
+    }
 }

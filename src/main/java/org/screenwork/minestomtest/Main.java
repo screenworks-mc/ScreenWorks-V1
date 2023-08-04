@@ -37,6 +37,7 @@ public class Main {
 
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
     public static HashMap<UUID, BanID> banInfo = new HashMap<>();
+    private final WorldEditEvents worldEditEvents = new WorldEditEvents();
 
     public static void main(String[] arguments) throws IOException {
         MinecraftServer minecraftServer = MinecraftServer.init();
@@ -52,9 +53,6 @@ public class Main {
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             final Player player = event.getPlayer();
-            if (event.getPlayer().getUsername().equals("xDadx")) {
-                event.getPlayer().kick("L");
-            }
             event.setSpawningInstance(instanceContainer);
             instanceContainer.setChunkSupplier(LightingChunk::new);
             player.setRespawnPoint(new Pos(0, 42, 0));
@@ -71,6 +69,8 @@ public class Main {
         new WorldEditEvents();
         new Attributes();
         System.out.println("Attributes class instantiated");
+        WorldEditEvents worldEditEvents = new WorldEditEvents();
+        MinecraftServer.getCommandManager().register(new SetCMD(worldEditEvents));
         setupCommands();
 
         minecraftServer.start("0.0.0.0", 25566);

@@ -1,5 +1,7 @@
 package org.screenwork.minestomtest.space;
 
+import net.hollowcube.util.schem.Rotation;
+import net.hollowcube.util.schem.SchematicReader;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.coordinate.Pos;
@@ -16,6 +18,7 @@ import net.minestom.server.world.DimensionType;
 import net.minestom.server.particle.Particle;
 import net.minestom.server.particle.ParticleCreator;
 
+import java.nio.file.Path;
 import java.util.Objects;
 
 public class lightspeed extends Command {
@@ -59,13 +62,15 @@ public class lightspeed extends Command {
     }
 
     public void loadLines(Player player) {
+
         createLine(player, 0, 42, 0, 10, 42, 10, 1000);
     }
 
     public void createShip(String ship, InstanceContainer customInstance) {
         switch (ship) {
             case "default":
-                customInstance.setBlock(0, 42, 0, Block.STONE);
+                var schem = SchematicReader.read(Path.of("src/main/java/org/screenwork/minestomtest/schematics/falcon.schem"));
+                schem.build(Rotation.NONE, null).apply(customInstance, -36, 36, -29, null);
                 break;
             default:
                 break;
@@ -80,7 +85,6 @@ public class lightspeed extends Command {
         customInstance.enableAutoChunkLoad(true);
         customInstance.setGenerator(unit ->
                 unit.modifier().fill(Block.AIR));
-        createShip("default", customInstance);
         MinecraftServer.getInstanceManager().registerInstance(customInstance);
 
         Pos teleportPosition = new Pos(0.5, 43, 0.5);
@@ -89,6 +93,8 @@ public class lightspeed extends Command {
 
         MinecraftServer.getSchedulerManager().buildTask(() -> {
             loadLines((Player) player);
+            createShip("default", customInstance);
+            player.teleport(teleportPosition);
             // 20 ticks = 1 second
         }).delay(TaskSchedule.tick(100)).schedule();
     }
