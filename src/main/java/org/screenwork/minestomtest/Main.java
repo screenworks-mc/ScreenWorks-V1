@@ -4,11 +4,21 @@ import com.google.gson.stream.JsonReader;
 import net.hollowcube.polar.PolarLoader;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
+import net.minestom.server.entity.EntityCreature;
+import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.*;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.item.ItemMeta;
+import net.minestom.server.item.ItemStack;
+import net.minestom.server.item.Material;
+import net.minestom.server.tag.Tag;
+import org.jglrxavpok.hephaistos.nbt.NBT;
+import org.jglrxavpok.hephaistos.nbt.NBTCompound;
+import org.jglrxavpok.hephaistos.nbt.NBTInt;
+import org.screenwork.minestomtest.blocks.ItemFrame;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.space.AttributeEvents;
 import org.screenwork.minestomtest.space.Attributes;
@@ -68,6 +78,7 @@ public class Main {
         new ServerListPing();
         new WorldEditEvents();
         new Attributes();
+        new ItemFrame();
         System.out.println("Attributes class instantiated");
         WorldEditEvents worldEditEvents = new WorldEditEvents();
         MinecraftServer.getCommandManager().register(new SetCMD(worldEditEvents));
@@ -82,6 +93,11 @@ public class Main {
         globalEventHandler.addListener(PlayerChatEvent.class, event -> {
             if ((event.getMessage().startsWith("save"))) {
                 instanceContainer.saveChunksToStorage();
+            } else if ((event.getMessage().startsWith("paper"))) {
+                event.getPlayer().getInventory().addItemStack(ItemStack.builder(Material.PAPER).meta(builder -> builder.customModelData(69420)).build());
+                EntityCreature entity = new EntityCreature(EntityType.ITEM_FRAME);
+                entity.setInstance(instanceContainer);
+                entity.teleport(new Pos(0, 42, 0));
             }
         });
     }
