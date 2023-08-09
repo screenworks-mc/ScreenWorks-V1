@@ -7,8 +7,6 @@ import org.screenwork.minestomtest.Main;
 public class PlayerDisconnect {
 
     public PlayerDisconnect() {
-
         MinecraftServer.getGlobalEventHandler().addListener(PlayerDisconnectEvent.class, event -> Main.logger.info("[-] " + event.getPlayer().getUsername()));
-
     }
 }

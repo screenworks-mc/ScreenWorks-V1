@@ -7,8 +7,6 @@ import org.screenwork.minestomtest.Main;
 public class PlayerChat {
 
     public PlayerChat() {
-
         MinecraftServer.getGlobalEventHandler().addListener(PlayerChatEvent.class, event -> Main.logger.info("<" + event.getPlayer().getUsername() + "> " + event.getMessage()));
-
     }
 }
