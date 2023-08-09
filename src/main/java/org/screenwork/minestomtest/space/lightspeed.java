@@ -24,6 +24,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 
+import static org.screenwork.minestomtest.Main.logger;
+
 public class lightspeed extends Command {
 
     public lightspeed() {
@@ -42,7 +44,8 @@ public class lightspeed extends Command {
                 return;
             }
             Entity player = sender.asPlayer();
-            createCustomDimension(player, String.valueOf(shipArg));
+            String ship = context.get(shipArg);
+            createCustomDimension(player, ship);
             System.out.println("Player ran lightspeed command");
         }, shipArg);
     }
