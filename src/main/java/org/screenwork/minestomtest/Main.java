@@ -1,7 +1,5 @@
 package org.screenwork.minestomtest;
 
-import com.google.gson.stream.JsonReader;
-import net.hollowcube.polar.PolarLoader;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.EntityCreature;
@@ -11,18 +9,12 @@ import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.*;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.item.ItemMeta;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
-import net.minestom.server.tag.Tag;
-import org.jglrxavpok.hephaistos.nbt.NBT;
-import org.jglrxavpok.hephaistos.nbt.NBTCompound;
-import org.jglrxavpok.hephaistos.nbt.NBTInt;
 import org.screenwork.minestomtest.blocks.ItemFrame;
 import org.screenwork.minestomtest.commands.*;
-import org.screenwork.minestomtest.space.AttributeEvents;
 import org.screenwork.minestomtest.space.Attributes;
-import org.screenwork.minestomtest.space.lightspeed;
+import org.screenwork.minestomtest.space.Lightspeed;
 import org.screenwork.minestomtest.events.*;
 import org.screenwork.minestomtest.moderationsys.profile.BanID;
 import org.screenwork.minestomtest.pack.pack;
@@ -37,9 +29,7 @@ import org.screenwork.minestomtest.commands.worldmanager.WorldManagerCMD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -125,6 +115,6 @@ public class Main {
         MinecraftServer.getCommandManager().register(new DisplayCMD());
         MinecraftServer.getCommandManager().register(new TpsCMD());
         MinecraftServer.getCommandManager().register(new ServerStatsCMD());
-        MinecraftServer.getCommandManager().register(new lightspeed());
+        MinecraftServer.getCommandManager().register(new Lightspeed());
     }
 }

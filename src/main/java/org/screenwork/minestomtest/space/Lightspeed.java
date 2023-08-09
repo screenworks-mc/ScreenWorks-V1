@@ -9,7 +9,6 @@ import net.minestom.server.command.builder.suggestion.SuggestionEntry;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.Player;
-import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
@@ -21,14 +20,11 @@ import net.minestom.server.particle.Particle;
 import net.minestom.server.particle.ParticleCreator;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Objects;
 
-import static org.screenwork.minestomtest.Main.logger;
+public class Lightspeed extends Command {
 
-public class lightspeed extends Command {
-
-    public lightspeed() {
+    public Lightspeed() {
         super("lightspeed");
         setDefaultExecutor((sender, context) -> {
             sender.sendMessage("Usage: /lightspeed <ship>");
