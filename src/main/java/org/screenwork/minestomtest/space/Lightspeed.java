@@ -8,7 +8,9 @@ import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.command.builder.suggestion.SuggestionEntry;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Entity;
+import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
+import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
@@ -25,14 +27,18 @@ import java.util.Objects;
 public class Lightspeed extends Command {
 
     public Lightspeed() {
-        super("lightspeed");
+        super("lines");
         setDefaultExecutor((sender, context) -> {
-            sender.sendMessage("Usage: /lightspeed <ship>");
+            sender.sendMessage("Usage: /lines <player>");
         });
 
-        var shipArg = ArgumentType.String("ship");
+        var playerArg = ArgumentType.String("player");
 
-        shipArg.setSuggestionCallback((sender, context, suggestion) -> suggestion.addEntry(new SuggestionEntry("default")));
+        playerArg.setSuggestionCallback((sender, context, suggestion) -> {
+            for (Player player : MinecraftServer.getConnectionManager().getOnlinePlayers()) {
+                suggestion.addEntry(new SuggestionEntry(player.getUsername()));
+            }
+        });
 
         addSyntax((sender, context) -> {
             if (!sender.isPlayer()) {
@@ -40,10 +46,8 @@ public class Lightspeed extends Command {
                 return;
             }
             Entity player = sender.asPlayer();
-            String ship = context.get(shipArg);
-            createCustomDimension(player, ship);
-            System.out.println("Player ran lightspeed command");
-        }, shipArg);
+            serveParticles(player);
+        }, playerArg);
     }
 
     private void createLine(Player player, int startX, int startY, int startZ, int endX, int endY, int endZ, int particleCount) {
@@ -71,36 +75,9 @@ public class Lightspeed extends Command {
         createLine(player, 0, 42, 0, 10, 42, 10, 1000);
     }
 
-    public void createShip(String ship, InstanceContainer customInstance) {
-        switch (ship) {
-            case "default":
-                var schem = SchematicReader.read(Path.of("src/main/java/org/screenwork/minestomtest/schematics/falcon.schem"));
-                schem.build(Rotation.NONE, null).apply(customInstance, -36, 36, -29, null);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void createCustomDimension(Entity player, String ship) {
-        MinecraftServer.getDimensionTypeManager().addDimension(DimensionType.builder(NamespaceID.from("lightspeed")).build());
-        InstanceManager instanceManager = MinecraftServer.getInstanceManager();
-        InstanceContainer customInstance = instanceManager.createInstanceContainer(Objects.requireNonNull(MinecraftServer
-                .getDimensionTypeManager().getDimension(NamespaceID.from("lightspeed"))));
-        customInstance.enableAutoChunkLoad(true);
-        customInstance.setGenerator(unit ->
-                unit.modifier().fill(Block.AIR));
-        MinecraftServer.getInstanceManager().registerInstance(customInstance);
-
-        Pos teleportPosition = new Pos(0.5, 43, 0.5);
-        player.setInstance(customInstance);
-        player.teleport(teleportPosition);
-
+    private void serveParticles(Entity player) {
         MinecraftServer.getSchedulerManager().buildTask(() -> {
             loadLines((Player) player);
-            createShip(ship, customInstance);
-            player.teleport(teleportPosition);
-            // 20 ticks = 1 second
-        }).delay(TaskSchedule.tick(100)).schedule();
+        }).delay(TaskSchedule.tick(20)).schedule();
     }
 }

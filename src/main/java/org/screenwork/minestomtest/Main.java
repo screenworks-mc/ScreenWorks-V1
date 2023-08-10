@@ -18,6 +18,7 @@ import org.screenwork.minestomtest.space.Lightspeed;
 import org.screenwork.minestomtest.events.*;
 import org.screenwork.minestomtest.moderationsys.profile.BanID;
 import org.screenwork.minestomtest.pack.pack;
+import org.screenwork.minestomtest.space.ShipCreator;
 import org.screenwork.minestomtest.worldedit.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
@@ -116,5 +117,6 @@ public class Main {
         MinecraftServer.getCommandManager().register(new TpsCMD());
         MinecraftServer.getCommandManager().register(new ServerStatsCMD());
         MinecraftServer.getCommandManager().register(new Lightspeed());
+        MinecraftServer.getCommandManager().register(new ShipCreator());
     }
 }
