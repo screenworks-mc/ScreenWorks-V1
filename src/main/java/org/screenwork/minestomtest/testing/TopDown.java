@@ -122,6 +122,7 @@ class PlayerData {
     }
 
     public void createNewTarget() {
+        playerInstance.setBlock(targetPos, Block.SEA_LANTERN);
         playerInstance.setBlock(targetPos, Block.BLACK_CONCRETE);
         Pos newPos = new Pos(random.nextInt(-5, 5), 0, random.nextInt(-5, 5));
         playerInstance.setBlock(newPos, Block.TARGET.withProperty("power", "15"));
