@@ -84,7 +84,7 @@ public class Lightspeed extends Command {
             }
 
             try {
-                Thread.sleep(10);
+                Thread.sleep(3);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
