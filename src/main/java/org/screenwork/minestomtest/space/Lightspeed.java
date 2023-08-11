@@ -51,28 +51,52 @@ public class Lightspeed extends Command {
     }
 
     private void createLine(Player player, int startX, int startY, int startZ, int endX, int endY, int endZ, int particleCount) {
+        int particlesPerIteration = 25;
+        int iterations = particleCount / particlesPerIteration;
+
         double deltaX = (endX - startX) / (double) particleCount;
         double deltaY = (endY - startY) / (double) particleCount;
         double deltaZ = (endZ - startZ) / (double) particleCount;
 
-        for (int i = 0; i < particleCount; i++) {
-            double currentX = startX + i * deltaX;
-            double currentY = startY + i * deltaY;
-            double currentZ = startZ + i * deltaZ;
+        for (int i = 0; i < iterations; i++) {
+            int startIndex = i * particlesPerIteration;
+            int endIndex = Math.min((i + 1) * particlesPerIteration, particleCount);
 
-            ParticlePacket particle = ParticleCreator.createParticlePacket(Particle.DUST, true,
-                    currentX, currentY, currentZ, 0f, 0f, 0f, 0, 1, writer -> {
-                        writer.writeFloat(0.7f);
-                        writer.writeFloat(0.7f);
-                        writer.writeFloat(1.0f);
-                        writer.writeFloat(1.0f);
-                    });
-            player.sendPacketToViewersAndSelf(particle);
+            for (int j = startIndex; j < endIndex; j++) {
+                double currentX = startX + j * deltaX;
+                double currentY = startY + j * deltaY;
+                double currentZ = startZ + j * deltaZ;
+
+                float gradient = (float) j / particleCount;
+                float red = 0.0f;
+                float green = 0.0f;
+                float blue = gradient * 1.0f;
+                float alpha = 1.0f;
+
+                ParticlePacket particle = ParticleCreator.createParticlePacket(Particle.DUST, true,
+                        currentX, currentY, currentZ, 0f, 0f, 0f, 0, 1, writer -> {
+                            writer.writeFloat(red);
+                            writer.writeFloat(green);
+                            writer.writeFloat(blue);
+                            writer.writeFloat(alpha);
+                        });
+                player.sendPacketToViewersAndSelf(particle);
+            }
+
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void loadLines(Player player) {
-        createLine(player, 0, 42, 0, 10, 42, 10, 1000);
+        createLine(player, 0, 42, 15, 0, 42, 5, 1000);
+        createLine(player, 3, 42, 15, 3, 42, 5, 1000);
+        createLine(player, -3, 42, 15, -3, 42, 5, 1000);
+        createLine(player, 5, 42, 15, 5, 42, 5, 1000);
+        createLine(player, -5, 42, 15, -5, 42, 5, 1000);
     }
 
     private void serveParticles(Entity player) {
