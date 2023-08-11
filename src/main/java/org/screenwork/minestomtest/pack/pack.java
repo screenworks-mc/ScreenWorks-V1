@@ -23,12 +23,4 @@ public class pack {
     public pack() {
 
     }
-
-    public void Textures() {
-
-    }
-
-    public void Models() throws IOException {
-
-    }
 }

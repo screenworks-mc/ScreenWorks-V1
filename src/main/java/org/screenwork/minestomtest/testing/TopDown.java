@@ -4,6 +4,7 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityType;
+import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.*;
@@ -31,9 +32,10 @@ public class TopDown {
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
         SchedulerManager scheduler = MinecraftServer.getSchedulerManager();
-
-        instanceContainer.setGenerator(unit ->
-                unit.modifier().fillHeight(0, 1, Block.BLACK_CONCRETE));
+        instanceContainer.setGenerator(unit -> {
+            unit.modifier().fillHeight(0, 1, Block.BLACK_CONCRETE);
+            unit.modifier().fillHeight(2, 10, Block.LIGHT);
+        });
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             final Player player = event.getPlayer();
@@ -53,7 +55,7 @@ public class TopDown {
                     player.spectate(camera);
                     camera.addPassenger(player);
                     PlayerData.registerPlayer(player);
-                }).delay(TaskSchedule.tick(20)).schedule();
+                }).delay(TaskSchedule.tick(1)).schedule();
             }
         });
 
@@ -88,6 +90,8 @@ public class TopDown {
 }
 
 class PlayerData {
+
+    public boolean hasJoinedBefore = false;
     public Entity cursor;
     public Pos targetPos = new Pos(0, 0, 0);
     public Instance playerInstance;
@@ -108,7 +112,7 @@ class PlayerData {
 
     private PlayerData(Player player) {
         playerDataMap.put(player, this);
-        cursor = new Entity(EntityType.SNOWBALL);
+        cursor = new Entity(EntityType.LLAMA_SPIT);
         cursor.setNoGravity(true);
         playerInstance = player.getInstance();
         cursor.setInstance(playerInstance, new Pos(0, 1, 0));
@@ -120,7 +124,7 @@ class PlayerData {
     public void createNewTarget() {
         playerInstance.setBlock(targetPos, Block.BLACK_CONCRETE);
         Pos newPos = new Pos(random.nextInt(-5, 5), 0, random.nextInt(-5, 5));
-        playerInstance.setBlock(newPos, Block.TARGET);
+        playerInstance.setBlock(newPos, Block.TARGET.withProperty("power", "15"));
         targetPos = newPos;
     }
 }
