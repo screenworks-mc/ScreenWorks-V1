@@ -19,6 +19,8 @@ import org.screenwork.minestomtest.events.*;
 import org.screenwork.minestomtest.moderationsys.profile.BanID;
 import org.screenwork.minestomtest.pack.pack;
 import org.screenwork.minestomtest.space.ShipCreator;
+import org.screenwork.minestomtest.testing.TopDown;
+import org.screenwork.minestomtest.testing.TopDownCommand;
 import org.screenwork.minestomtest.worldedit.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
@@ -60,6 +62,8 @@ public class Main {
         });
 
         new PlayerDisconnect();
+        TopDown topDown = new TopDown();
+        MinecraftServer.getCommandManager().register(new TopDownCommand(topDown));
         new PlayerChat();
         new PlayerLogin();
         new ItemDrop();
