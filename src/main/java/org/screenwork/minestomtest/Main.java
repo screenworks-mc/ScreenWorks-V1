@@ -19,6 +19,7 @@ import org.screenwork.minestomtest.events.*;
 import org.screenwork.minestomtest.moderationsys.profile.BanID;
 import org.screenwork.minestomtest.pack.pack;
 import org.screenwork.minestomtest.space.ShipCreator;
+import org.screenwork.minestomtest.testing.Chairs;
 import org.screenwork.minestomtest.testing.TopDown;
 import org.screenwork.minestomtest.testing.TopDownCommand;
 import org.screenwork.minestomtest.worldedit.*;
@@ -74,6 +75,7 @@ public class Main {
         new WorldEditEvents();
         new Attributes();
         new ItemFrame();
+        new Chairs();
         System.out.println("Attributes class instantiated");
         WorldEditEvents worldEditEvents = new WorldEditEvents();
         MinecraftServer.getCommandManager().register(new SetCMD(worldEditEvents));
