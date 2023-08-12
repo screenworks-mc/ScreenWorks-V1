@@ -3,12 +3,15 @@ name: Build, Package, and Release
 on:
   push:
     branches:
-      - main  # Adjust the branch name as needed
+      - master
 
 jobs:
   build_and_release:
     runs-on: ubuntu-latest
-
+    
+    permissions: # The Dependency Submission API requires write permission
+      contents: write
+      
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
