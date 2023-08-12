@@ -1,4 +1,4 @@
-package org.screenwork.minestomtest.worldedit;
+package org.screenwork.minestomtest.mbr;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -6,27 +6,18 @@ import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.command.builder.suggestion.SuggestionEntry;
 import net.minestom.server.coordinate.Point;
-import net.minestom.server.entity.EntityCreature;
-import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
-import net.minestom.server.entity.ai.goal.MeleeAttackGoal;
-import net.minestom.server.entity.ai.goal.RandomStrollGoal;
-import net.minestom.server.entity.ai.target.ClosestEntityTarget;
-import net.minestom.server.entity.ai.target.LastEntityDamagerTarget;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.utils.time.TimeUnit;
-
-import java.util.List;
 
 public class SetCMD extends Command {
 
-    private final WorldEditEvents worldEditEvents;
+    private final EditEvents worldEditEvents;
 
-    public SetCMD(WorldEditEvents worldEditEvents) {
+    public SetCMD(EditEvents EditEvents) {
         super("set");
 
-        this.worldEditEvents = worldEditEvents;
+        this.worldEditEvents = EditEvents;
 
         setDefaultExecutor((sender, context) -> {
             sender.sendMessage("Usage: /set <block>");
@@ -49,8 +40,8 @@ public class SetCMD extends Command {
             final String blockName = context.get(blockArg);
 
             Player player = sender.asPlayer();
-            Point pos1 = worldEditEvents.getPos1(player);
-            Point pos2 = worldEditEvents.getPos2(player);
+            Point pos1 = EditEvents.getPos1(player);
+            Point pos2 = EditEvents.getPos2(player);
 
             sender.sendMessage("Point 1 is " +  pos1);
             sender.sendMessage("Point 2 is " +  pos2);

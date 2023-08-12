@@ -4,6 +4,7 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.coordinate.Vec;
+import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.ItemEntity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.item.ItemDropEvent;
@@ -19,6 +20,9 @@ public class BlockBreak {
         MinecraftServer.getGlobalEventHandler().addListener(PlayerBlockBreakEvent.class, event -> {
                 Block block = event.getBlock();
                 Player player = event.getPlayer();
+
+                if (player.getGameMode().equals(GameMode.CREATIVE)) return;
+
                 ItemStack droppedItem = ItemStack.of(block.registry().material());
 
                 ItemEntity itemEntity = new ItemEntity(droppedItem);

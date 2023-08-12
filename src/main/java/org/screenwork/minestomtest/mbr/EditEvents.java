@@ -1,10 +1,9 @@
-package org.screenwork.minestomtest.worldedit;
+package org.screenwork.minestomtest.mbr;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Point;
-import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerBlockBreakEvent;
@@ -16,13 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class WorldEditEvents {
+public class EditEvents {
 
     private final Map<Player, Point> pos1 = new HashMap<>();
     private final Map<Player, Point> pos2 = new HashMap<>();
     private final Map<Player, AtomicBoolean> hasProcessedRightClickMap = new HashMap<>(); // Map to associate the flag with each player
 
-    public WorldEditEvents() {
+    public EditEvents() {
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
         ItemStack wand = ItemStack.builder(Material.WOODEN_AXE)
                 .displayName(Component.text("Wand"))

@@ -1,9 +1,7 @@
-package org.screenwork.minestomtest.worldedit;
+package org.screenwork.minestomtest.mbr;
 
 import net.kyori.adventure.text.Component;
-import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Command;
-import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 

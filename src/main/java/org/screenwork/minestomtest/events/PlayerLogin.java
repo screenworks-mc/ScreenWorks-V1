@@ -1,15 +1,20 @@
 package org.screenwork.minestomtest.events;
 
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.GameMode;
+import net.minestom.server.entity.Player;
 import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerChatEvent;
 import net.minestom.server.event.player.PlayerDisconnectEvent;
 import net.minestom.server.event.player.PlayerLoginEvent;
 import net.minestom.server.event.player.PlayerSkinInitEvent;
+import net.minestom.server.instance.LightingChunk;
 import org.screenwork.minestomtest.Main;
 import org.screenwork.minestomtest.moderationsys.profile.BanID;
+
+import static org.screenwork.minestomtest.Main.instanceContainer;
 
 public class PlayerLogin {
 
@@ -24,9 +29,7 @@ public class PlayerLogin {
 
                     // event.getPlayer().kick("You are currently banned for: " + banID.getReason() + " by " + banID.getModerator() + " for " + banID.getDuration() + " more seconds.");
 
-                }
-
-            });
+                }});
 
             //Permissions and gamemode
             globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
@@ -35,11 +38,17 @@ public class PlayerLogin {
                 Main.logger.info("[+] " + event.getPlayer().getUsername());
             });
 
-
             //Skin
             globalEventHandler.addListener(PlayerSkinInitEvent.class, event -> {
                 PlayerSkin skin = PlayerSkin.fromUsername(event.getPlayer().getUsername());
                 event.setSkin(skin);});
+
+            globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
+                final Player player = event.getPlayer();
+                event.setSpawningInstance(instanceContainer);
+                instanceContainer.setChunkSupplier(LightingChunk::new);
+                player.setRespawnPoint(new Pos(0, 42, 0));
+            });
 
         }
 }

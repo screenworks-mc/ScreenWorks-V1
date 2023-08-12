@@ -13,6 +13,9 @@ import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import org.screenwork.minestomtest.blocks.ItemFrame;
 import org.screenwork.minestomtest.commands.*;
+import org.screenwork.minestomtest.mbr.EditEvents;
+import org.screenwork.minestomtest.mbr.SetCMD;
+import org.screenwork.minestomtest.mbr.WandCMD;
 import org.screenwork.minestomtest.space.Attributes;
 import org.screenwork.minestomtest.space.Lightspeed;
 import org.screenwork.minestomtest.events.*;
@@ -41,30 +44,36 @@ public class Main {
 
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
     public static HashMap<UUID, BanID> banInfo = new HashMap<>();
-    private final WorldEditEvents worldEditEvents = new WorldEditEvents();
+    private final EditEvents EditEvents = new EditEvents();
+    public static InstanceContainer instanceContainer;
 
     public static void main(String[] arguments) throws IOException {
+
+        //Server Setup
+
         MinecraftServer minecraftServer = MinecraftServer.init();
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
 
         MinecraftServer.setBrandName("ScreenWork V1");
 
-        InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
+        //World Setup
+
+        instanceContainer = instanceManager.createInstanceContainer();
         // PolarLoader polar = (new PolarLoader(Path.of("src/main/java/org/screenwork/minestomtest/commands/instances")));
         instanceContainer.setGenerator(unit ->
                 unit.modifier().fillHeight(39, 40, Block.DIAMOND_BLOCK));
 
-        globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
-            final Player player = event.getPlayer();
-            event.setSpawningInstance(instanceContainer);
-            instanceContainer.setChunkSupplier(LightingChunk::new);
-            player.setRespawnPoint(new Pos(0, 42, 0));
-        });
+
+        setupCommands();
+        setupEvents();
+
+        minecraftServer.start("0.0.0.0", 25566);
+    }
+
+    private static void setupEvents() {
 
         new PlayerDisconnect();
-        TopDown topDown = new TopDown();
-        MinecraftServer.getCommandManager().register(new TopDownCommand(topDown));
         new PlayerChat();
         new PlayerLogin();
         new ItemDrop();
@@ -72,34 +81,19 @@ public class Main {
         new BlockBreak();
         new pack();
         new ServerListPing();
-        new WorldEditEvents();
+        new EditEvents();
+
         new Attributes();
+        System.out.println("Attributes class instantiated");
+
         new ItemFrame();
         new Chairs();
-        System.out.println("Attributes class instantiated");
-        WorldEditEvents worldEditEvents = new WorldEditEvents();
-        MinecraftServer.getCommandManager().register(new SetCMD(worldEditEvents));
-        setupCommands();
 
-        minecraftServer.start("0.0.0.0", 25566);
-
-        globalEventHandler.addListener(PlayerCommandEvent.class, event -> {
-            logger.info(event.getPlayer().getUsername() + " ran: /" + event.getCommand());
-        });
-
-        globalEventHandler.addListener(PlayerChatEvent.class, event -> {
-            if ((event.getMessage().startsWith("save"))) {
-                instanceContainer.saveChunksToStorage();
-            } else if ((event.getMessage().startsWith("paper"))) {
-                event.getPlayer().getInventory().addItemStack(ItemStack.builder(Material.PAPER).meta(builder -> builder.customModelData(69420)).build());
-                EntityCreature entity = new EntityCreature(EntityType.ITEM_FRAME);
-                entity.setInstance(instanceContainer);
-                entity.teleport(new Pos(0, 42, 0));
-            }
-        });
     }
 
     private static void setupCommands() {
+
+        //Moderator Commands
         MinecraftServer.getCommandManager().register(new GamemodeCMD());
         MinecraftServer.getCommandManager().register(new GamemodeAliasCMD());
         MinecraftServer.getCommandManager().register(new GiveCMD());
@@ -111,18 +105,35 @@ public class Main {
         MinecraftServer.getCommandManager().register(new BanCMD());
         MinecraftServer.getCommandManager().register(new UnbanCMD());
         MinecraftServer.getCommandManager().register(new ToBlockCMD());
-        MinecraftServer.getCommandManager().register(new RebuildLightCacheCommand());
+
+        // Player Commands
         MinecraftServer.getCommandManager().register(new MessageCMD());
+
+        //World Manager
         MinecraftServer.getCommandManager().register(new WorldTP());
         MinecraftServer.getCommandManager().register(new WorldManagerCMD());
+
+        //Mass Block Replacement System
         MinecraftServer.getCommandManager().register(new SetBlockCMD());
         MinecraftServer.getCommandManager().register(new WandCMD());
         MinecraftServer.getCommandManager().register(new UpCMD());
+
+        EditEvents EditEvents = new EditEvents();
+        MinecraftServer.getCommandManager().register(new SetCMD(EditEvents));
+
+        //Admin Commands
         MinecraftServer.getCommandManager().register(new StopCMD());
         MinecraftServer.getCommandManager().register(new DisplayCMD());
         MinecraftServer.getCommandManager().register(new TpsCMD());
         MinecraftServer.getCommandManager().register(new ServerStatsCMD());
+        MinecraftServer.getCommandManager().register(new RebuildLightCacheCommand());
+
+        //Space
+        TopDown topDown = new TopDown();
+
         MinecraftServer.getCommandManager().register(new Lightspeed());
         MinecraftServer.getCommandManager().register(new ShipCreator());
+        MinecraftServer.getCommandManager().register(new TopDownCommand(topDown));
+
     }
 }
