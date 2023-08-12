@@ -16,7 +16,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '11'  # Adjust the Java version as needed
+        java-version: '17'  # Adjust the Java version as needed
 
     - name: Build with Gradle and Shade Dependencies
       run: |
