@@ -20,6 +20,7 @@ import net.minestom.server.network.packet.server.play.SpawnEntityPacket;
 import net.minestom.server.potion.Potion;
 import net.minestom.server.potion.PotionEffect;
 import net.minestom.server.timer.TaskSchedule;
+import net.minestom.server.utils.Rotation;
 import net.minestom.server.utils.time.Tick;
 import net.minestom.server.utils.time.TimeUnit;
 
@@ -37,6 +38,7 @@ public class Chairs {
         globalEventHandler.addListener(PlayerMoveEvent.class, this::onPlayerMove);
         globalEventHandler.addListener(PlayerSpawnEvent.class, this::onPlayerSpawn);
         globalEventHandler.addListener(PlayerPacketEvent.class, this::onPlayerPacket);
+        globalEventHandler.addListener(PlayerEntityInteractEvent.class, this::onEntityInteract);
     }
 
     private void onPlayerPacket(PlayerPacketEvent event) {
@@ -64,6 +66,22 @@ public class Chairs {
         }).build());
     }
 
+    private void onEntityInteract(PlayerEntityInteractEvent event) {
+        Entity entity = event.getTarget();
+        if (EntityType.SLIME.equals(entity.getEntityType())) {
+            for (Entity chair : chairs) {
+                if (entity.getUuid().equals(chair.getUuid())) {
+                    entity.setView(-90, 0);
+                    for (Entity passenger : chair.getPassengers()) {
+                        passenger.setView(0, -90);
+                    }
+                    event.getPlayer().sendMessage("Rotated the entity by 45 degrees.");
+                }
+            }
+        }
+    }
+
+
     private void onPlayerBlockInteract(PlayerBlockInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack itemStack = player.getItemInMainHand();
@@ -85,7 +103,7 @@ public class Chairs {
 
         for (Entity chair : chairs) {
             Pos chairPos = chair.getPosition();
-            if (playerPos.distance(chairPos) < 0.1) {
+            if (playerPos.distance(chairPos) < 0.5) {
                 if (!chair.getPassengers().contains(event.getPlayer())) {
                     chair.addPassenger(player);
                     player.sendMessage("You are sitting in a chair.");
@@ -95,10 +113,11 @@ public class Chairs {
     }
 
     private void spawnChairEntity(Instance instance, Pos position) {
-        Entity chairEntity = new Entity(EntityType.MINECART);
-        chairEntity.addEffect(new Potion(PotionEffect.INVISIBILITY, (byte) 1, 30));
+        Entity chairEntity = new Entity(EntityType.SLIME);
+        chairEntity.setNoGravity(true);
+        chairEntity.addEffect(new Potion(PotionEffect.INVISIBILITY, (byte) 100, 300));
         chairEntity.setInstance(instance);
-        chairEntity.teleport(position);
+        chairEntity.teleport(new Pos(position.x(), position.y() + 0.1, position.z()));
         ItemStack chairItem = ItemStack.builder(Material.PAPER).meta(metaBuilder -> {
             metaBuilder.customModelData(69420);
             metaBuilder.displayName(Component.text("Chair"));

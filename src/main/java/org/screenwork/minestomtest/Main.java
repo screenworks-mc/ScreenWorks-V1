@@ -25,7 +25,7 @@ import org.screenwork.minestomtest.space.ShipCreator;
 import org.screenwork.minestomtest.testing.Chairs;
 import org.screenwork.minestomtest.testing.TopDown;
 import org.screenwork.minestomtest.testing.TopDownCommand;
-import org.screenwork.minestomtest.worldedit.*;
+import org.screenwork.minestomtest.mbr.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
 import org.screenwork.minestomtest.moderationsys.commands.BanCMD;
