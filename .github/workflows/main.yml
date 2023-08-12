@@ -1,21 +1,35 @@
-name: build
+name: Build, Package, and Release
+
 on:
   push:
     branches:
-      - master # run the action on your projects default branch
+      - main  # Adjust the branch name as needed
 
 jobs:
-  build:
-    name: Dependencies
+  build_and_release:
     runs-on: ubuntu-latest
-    permissions: # The Dependency Submission API requires write permission
-      contents: write
-    steps:
-      - name: 'Checkout Repository'
-        uses: actions/checkout@v3
 
-      - name: Gradle Dependency Submission
-        uses: mikepenz/gradle-dependency-submission@v0.9.0
-        with:
-          gradle-project-path: "gradle-example"
-          gradle-build-module: ":app"
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'  # Adjust the Java version as needed
+
+    - name: Build with Gradle and Shade Dependencies
+      run: |
+        ./gradlew clean build shadowJar  # Replace with your Gradle build commands
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: build/libs/*.jar  # Path to the shaded JAR file
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Automatically provided by GitHub
+
+    - name: Get Release ID
+      id: get_release_id
+      run: echo "Release ID is ${{ steps.create_release.outputs.id }}"
