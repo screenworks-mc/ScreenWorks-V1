@@ -11,8 +11,10 @@ import net.minestom.server.event.player.PlayerDisconnectEvent;
 import net.minestom.server.event.player.PlayerLoginEvent;
 import net.minestom.server.event.player.PlayerSkinInitEvent;
 import net.minestom.server.instance.LightingChunk;
+import nl.kiipdevelopment.minescreen.screen.ScreenGui;
 import org.screenwork.minestomtest.Main;
 import org.screenwork.minestomtest.moderationsys.profile.BanID;
+import org.screenwork.minestomtest.testing.sdqnger.TestGui;
 
 import static org.screenwork.minestomtest.Main.instanceContainer;
 
@@ -33,6 +35,7 @@ public class PlayerLogin {
 
             //Permissions and gamemode
             globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
+
                 event.getPlayer().setGameMode(GameMode.CREATIVE);
                 event.getPlayer().setPermissionLevel(4);
                 Main.logger.info("[+] " + event.getPlayer().getUsername());
@@ -46,6 +49,7 @@ public class PlayerLogin {
             globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
                 final Player player = event.getPlayer();
                 event.setSpawningInstance(instanceContainer);
+
                 instanceContainer.setChunkSupplier(LightingChunk::new);
                 player.setRespawnPoint(new Pos(0, 42, 0));
             });

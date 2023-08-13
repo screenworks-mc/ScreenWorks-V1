@@ -10,6 +10,17 @@ repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
     maven { url 'https://repo.unnamed.team/repository/unnamed-public/' }
+
+    ivy {
+        url 'https://github.com/'
+
+        patternLayout {
+            artifact '/[organisation]/[module]/releases/download/latest/[revision].jar'
+        }
+
+        metadataSources { artifact() }
+    }
+    maven { url 'https://packages.jetbrains.team/maven/p/skija/maven' }
 }
 
 dependencies {
@@ -35,6 +46,10 @@ dependencies {
 
     // Hollow Cube Commons Schem Loader
     implementation("com.github.hollow-cube.common:schem:db5eab9512")
+
+    // MineScreen
+    implementation('kiipy:MineScreen:MineScreen-1.0.3-dev')
+    implementation "org.jetbrains.skija:skija-windows:0.93.6"
 
 }
 

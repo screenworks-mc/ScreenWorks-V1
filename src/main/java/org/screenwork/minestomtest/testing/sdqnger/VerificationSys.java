@@ -2,7 +2,6 @@ package org.screenwork.minestomtest.testing.sdqnger;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
-import net.minestom.server.coordinate.Vec;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.GameMode;
@@ -14,7 +13,6 @@ import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.inventory.PlayerInventory;
 import net.minestom.server.network.packet.client.ClientPacket;
 import net.minestom.server.network.packet.client.play.ClientPlayerRotationPacket;
 import net.minestom.server.potion.Potion;
@@ -62,7 +60,7 @@ public class VerificationSys {
             Player player = event.getPlayer();
 
             //if (!(event.getPlayer().getPermissionLevel() >= 1)) {
-            if (true) {
+            if (false) {
 
                 VerificationData verificationData = new VerificationData();
 

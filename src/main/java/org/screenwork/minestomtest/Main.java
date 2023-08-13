@@ -4,6 +4,8 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
+import nl.kiipdevelopment.minescreen.MineScreen;
+import nl.kiipdevelopment.minescreen.screen.ScreenGui;
 import org.screenwork.minestomtest.blocks.ItemFrame;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.mbr.EditEvents;
@@ -25,6 +27,8 @@ import org.screenwork.minestomtest.commands.GiveCMD;
 import org.screenwork.minestomtest.moderationsys.commands.KickCMD;
 import org.screenwork.minestomtest.moderationsys.commands.UnbanCMD;
 import org.screenwork.minestomtest.commands.worldmanager.WorldManagerCMD;
+import org.screenwork.minestomtest.testing.sdqnger.ShowGui;
+import org.screenwork.minestomtest.testing.sdqnger.TestGui;
 import org.screenwork.minestomtest.testing.sdqnger.VerificationData;
 import org.screenwork.minestomtest.testing.sdqnger.VerificationSys;
 import org.slf4j.Logger;
@@ -56,17 +60,20 @@ public class Main {
         MinecraftServer.setBrandName("ScreenWork V1");
 
         //World Setup
-
         instanceContainer = instanceManager.createInstanceContainer();
         // PolarLoader polar = (new PolarLoader(Path.of("src/main/java/org/screenwork/minestomtest/commands/instances")));
         instanceContainer.setGenerator(unit ->
                 unit.modifier().fillHeight(39, 40, Block.DIAMOND_BLOCK));
 
 
+        //MineScreen Test
+        MineScreen.instance().init();
+
         setupCommands();
         setupEvents();
 
         minecraftServer.start("0.0.0.0", 25566);
+
     }
 
     private static void setupEvents() {
@@ -135,6 +142,9 @@ public class Main {
         MinecraftServer.getCommandManager().register(new Lightspeed());
         MinecraftServer.getCommandManager().register(new ShipCreator());
         MinecraftServer.getCommandManager().register(new TopDownCommand(topDown));
+
+        //Interactive GUI
+        MinecraftServer.getCommandManager().register(new ShowGui());
 
     }
 }
