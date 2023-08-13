@@ -2,6 +2,7 @@ package org.screenwork.minestomtest.testing.sdqnger;
 
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.coordinate.Pos;
+import net.minestom.server.entity.Player;
 import nl.kiipdevelopment.minescreen.screen.ScreenGui;
 
 public class ShowGui extends Command {
@@ -14,10 +15,16 @@ public class ShowGui extends Command {
 
         addSyntax((sender, context) -> {
 
-            ScreenGui gui = TestGui.init();
-            sender.asPlayer().setInstance(gui.instance());
-            sender.asPlayer().teleport(new Pos(0, 1, 0));
+            Player player = (Player) sender;
+
+            ScreenGui gui = StartMenuGui.init();
+
+            player.setInstance(gui.instance());
+
+            player.teleport(new Pos(0, 1, 0));
+
             gui.show(sender.asPlayer());
+
         });
     }
 }
