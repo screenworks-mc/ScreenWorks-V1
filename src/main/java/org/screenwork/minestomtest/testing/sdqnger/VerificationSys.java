@@ -2,8 +2,10 @@ package org.screenwork.minestomtest.testing.sdqnger;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
+import net.minestom.server.coordinate.Vec;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityType;
+import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerLoginEvent;
@@ -50,7 +52,7 @@ public class VerificationSys {
                 cursor.teleport(new Pos(rotationPacket.yaw()/-8, 1, rotationPacket.pitch()/-8));
 
                 if (cursorPos.blockX() == verificationData.targetPos.blockX() && cursorPos.blockZ() == verificationData.targetPos.blockZ()) {
-
+                    verificationData.targetPos = createNewTarget(player.getInstance(), verificationData.targetPos);
                 }
 
             }});
@@ -98,6 +100,8 @@ public class VerificationSys {
 
     private void generateCamera(InstanceContainer instanceContainer, Player player) {
 
+        player.setGameMode(GameMode.SPECTATOR);
+
         Entity camera = new Entity(EntityType.BAT);
         camera.addEffect(new Potion(PotionEffect.INVISIBILITY, (byte) 1, 100));
         camera.setNoGravity(true);
@@ -114,7 +118,7 @@ public class VerificationSys {
     private Entity generateCursor(InstanceContainer instanceContainer) {
 
         Entity cursor = new Entity(EntityType.LLAMA_SPIT);
-        cursor.setBoundingBox(0.5f, 0.5f, 0.5f);
+
         cursor.setNoGravity(true);
         cursor.setCustomNameVisible(true);
         cursor.setInvisible(true);
@@ -142,14 +146,14 @@ public class VerificationSys {
         cursor.setInstance(instance);
     }
 
-    public Pos createNewTarget(InstanceContainer instanceContainer, Pos targetPos) {
+    public Pos createNewTarget(Instance instance, Pos targetPos) {
 
         Random random = new Random();
 
-        instanceContainer.setBlock(targetPos, Block.SEA_LANTERN);
-        instanceContainer.setBlock(targetPos, Block.BLACK_CONCRETE);
+        instance.setBlock(targetPos, Block.SEA_LANTERN);
+        instance.setBlock(targetPos, Block.BLACK_CONCRETE);
         Pos newPos = new Pos(random.nextInt(-5, 5), 0, random.nextInt(-5, 5));
-        instanceContainer.setBlock(newPos, Block.TARGET.withProperty("power", "15"));
+        instance.setBlock(newPos, Block.TARGET.withProperty("power", "15"));
 
         return newPos;
     }
