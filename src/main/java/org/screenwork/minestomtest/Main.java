@@ -1,16 +1,9 @@
 package org.screenwork.minestomtest;
 
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.coordinate.Pos;
-import net.minestom.server.entity.EntityCreature;
-import net.minestom.server.entity.EntityType;
-import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.event.player.*;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.item.ItemStack;
-import net.minestom.server.item.Material;
 import org.screenwork.minestomtest.blocks.ItemFrame;
 import org.screenwork.minestomtest.commands.*;
 import org.screenwork.minestomtest.mbr.EditEvents;
@@ -25,7 +18,6 @@ import org.screenwork.minestomtest.space.ShipCreator;
 import org.screenwork.minestomtest.testing.Chairs;
 import org.screenwork.minestomtest.testing.TopDown;
 import org.screenwork.minestomtest.testing.TopDownCommand;
-import org.screenwork.minestomtest.mbr.*;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeAliasCMD;
 import org.screenwork.minestomtest.commands.gamemode.GamemodeCMD;
 import org.screenwork.minestomtest.moderationsys.commands.BanCMD;
@@ -33,6 +25,8 @@ import org.screenwork.minestomtest.commands.GiveCMD;
 import org.screenwork.minestomtest.moderationsys.commands.KickCMD;
 import org.screenwork.minestomtest.moderationsys.commands.UnbanCMD;
 import org.screenwork.minestomtest.commands.worldmanager.WorldManagerCMD;
+import org.screenwork.minestomtest.testing.sdqnger.VerificationData;
+import org.screenwork.minestomtest.testing.sdqnger.VerificationSys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,8 +37,12 @@ import java.util.UUID;
 public class Main {
 
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static HashMap<UUID, BanID> banInfo = new HashMap<>();
+    public static HashMap<UUID, VerificationData>  verificationDataList = new HashMap<>();
+
     private final EditEvents EditEvents = new EditEvents();
+
     public static InstanceContainer instanceContainer;
 
     public static void main(String[] arguments) throws IOException {
@@ -88,6 +86,9 @@ public class Main {
 
         new ItemFrame();
         new Chairs();
+
+        new VerificationData();
+        new VerificationSys();
 
     }
 
