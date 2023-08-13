@@ -21,6 +21,8 @@ import net.minestom.server.timer.SchedulerManager;
 import net.minestom.server.timer.TaskSchedule;
 import org.screenwork.minestomtest.Main;
 
+import java.util.Random;
+
 public class VerificationSys {
 
     GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
@@ -46,6 +48,7 @@ public class VerificationSys {
                 Pos cursorPos = cursor.getPosition();
 
                 cursor.teleport(new Pos(rotationPacket.yaw()/-8, 1, rotationPacket.pitch()/-8));
+
                 if (cursorPos.blockX() == verificationData.targetPos.blockX() && cursorPos.blockZ() == verificationData.targetPos.blockZ()) {
 
                 }
@@ -59,6 +62,8 @@ public class VerificationSys {
             //if (!(event.getPlayer().getPermissionLevel() >= 1)) {
             if (true) {
 
+                VerificationData verificationData = new VerificationData();
+
                 var instanceContainer = generateWorld();
 
                 event.setSpawningInstance(instanceContainer);
@@ -67,7 +72,11 @@ public class VerificationSys {
                 player.setRespawnPoint(new Pos(0, 0, 0));
 
                 generateCamera(instanceContainer, player);
-                generateCursor(instanceContainer);
+                verificationData.cursor = generateCursor(instanceContainer);
+
+                verificationData.targetPos = createNewTarget(instanceContainer, verificationData.targetPos);
+
+                Main.verificationDataList.put(player.getUuid(), verificationData);
 
             }
         });
@@ -102,9 +111,9 @@ public class VerificationSys {
         }).delay(TaskSchedule.tick(1)).schedule();
     }
 
-    private void generateCursor(InstanceContainer instanceContainer) {
+    private Entity generateCursor(InstanceContainer instanceContainer) {
 
-        Entity cursor = new Entity(EntityType.SHULKER);
+        Entity cursor = new Entity(EntityType.LLAMA_SPIT);
         cursor.setBoundingBox(0.5f, 0.5f, 0.5f);
         cursor.setNoGravity(true);
         cursor.setCustomNameVisible(true);
@@ -118,6 +127,7 @@ public class VerificationSys {
 
         System.out.println(cursor);
 
+        return cursor;
     }
 
     private void generateCursorArmourStand(Instance instance, Player player) {
@@ -130,6 +140,18 @@ public class VerificationSys {
         cursor.setSilent(true);
         cursor.setGlowing(true);
         cursor.setInstance(instance);
+    }
+
+    public Pos createNewTarget(InstanceContainer instanceContainer, Pos targetPos) {
+
+        Random random = new Random();
+
+        instanceContainer.setBlock(targetPos, Block.SEA_LANTERN);
+        instanceContainer.setBlock(targetPos, Block.BLACK_CONCRETE);
+        Pos newPos = new Pos(random.nextInt(-5, 5), 0, random.nextInt(-5, 5));
+        instanceContainer.setBlock(newPos, Block.TARGET.withProperty("power", "15"));
+
+        return newPos;
     }
 
 }
