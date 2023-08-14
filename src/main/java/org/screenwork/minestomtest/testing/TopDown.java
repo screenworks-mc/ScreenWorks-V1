@@ -39,7 +39,7 @@ public class TopDown {
 
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             final Player player = event.getPlayer();
-            if (topDownMode) { // Check if topdown mode is enabled
+            if (topDownMode) {
                 event.setSpawningInstance(instanceContainer);
                 player.setInstance(instanceContainer);
                 player.setRespawnPoint(new Pos(0, 0, 0));
@@ -60,7 +60,7 @@ public class TopDown {
         });
 
         globalEventHandler.addListener(PlayerPacketEvent.class, event -> {
-            if (!topDownMode) return; // Do nothing if topdown mode is not enabled
+            if (!topDownMode) return;
 
             ClientPacket packet = event.getPacket();
             Player player = event.getPlayer();
@@ -78,7 +78,6 @@ public class TopDown {
         });
     }
 
-    // Command to toggle topdown mode
     public void toggleTopDownMode(Player player) {
         topDownMode = !topDownMode;
         if (topDownMode) {

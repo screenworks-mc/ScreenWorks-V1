@@ -1,9 +1,11 @@
 package org.screenwork.minestomtest;
 
+import net.hollowcube.polar.PolarLoader;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.world.DimensionType;
 import nl.kiipdevelopment.minescreen.MineScreen;
 import nl.kiipdevelopment.minescreen.screen.ScreenGui;
 import org.screenwork.minestomtest.blocks.ItemFrame;
@@ -35,6 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -73,7 +76,6 @@ public class Main {
         setupEvents();
 
         minecraftServer.start("0.0.0.0", 25566);
-
     }
 
     private static void setupEvents() {
