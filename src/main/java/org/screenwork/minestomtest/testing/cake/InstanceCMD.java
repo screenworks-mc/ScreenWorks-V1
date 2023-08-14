@@ -49,6 +49,6 @@ public class InstanceCMD extends Command {
 
         InstanceContainer instance = MinecraftServer.getInstanceManager().createInstanceContainer(DimensionType.OVERWORLD, new AnvilLoader("src/main/java/org/screenwork/minestomtest/worlds/" + world));
         sender.asPlayer().setInstance(instance);
-        sender.sendMessage("World " + name + " has been created!");
+        sender.sendMessage("World " + name + " has been imported!");
     }
 }
