@@ -60,6 +60,8 @@ public class Main {
 
         MinecraftServer.setBrandName("ScreenWork V1");
 
+        //Testing github codespace
+        
         //World Setup
         instanceContainer = instanceManager.createInstanceContainer();
         // PolarLoader polar = (new PolarLoader(Path.of("src/main/java/org/screenwork/minestomtest/commands/instances")));
