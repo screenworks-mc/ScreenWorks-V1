@@ -29,6 +29,7 @@ import org.screenwork.minestomtest.commands.GiveCMD;
 import org.screenwork.minestomtest.moderationsys.commands.KickCMD;
 import org.screenwork.minestomtest.moderationsys.commands.UnbanCMD;
 import org.screenwork.minestomtest.commands.worldmanager.WorldManagerCMD;
+import org.screenwork.minestomtest.testing.cake.InstanceCMD;
 import org.screenwork.minestomtest.testing.sdqnger.ShowGui;
 import org.screenwork.minestomtest.testing.sdqnger.TestGui;
 import org.screenwork.minestomtest.testing.sdqnger.VerificationData;
@@ -51,6 +52,7 @@ public class Main {
     private final EditEvents EditEvents = new EditEvents();
 
     public static InstanceContainer instanceContainer;
+    public static InstanceContainer instance;
 
     public static void main(String[] arguments) throws IOException {
 
@@ -67,6 +69,7 @@ public class Main {
         // PolarLoader polar = (new PolarLoader(Path.of("src/main/java/org/screenwork/minestomtest/commands/instances")));
         instanceContainer.setGenerator(unit ->
                 unit.modifier().fillHeight(39, 40, Block.DIAMOND_BLOCK));
+        instance = MinecraftServer.getInstanceManager().createInstanceContainer(DimensionType.OVERWORLD, new AnvilLoader("src/main/java/org/screenwork/minestomtest/worlds/football"));
 
 
         //MineScreen Test
@@ -147,6 +150,8 @@ public class Main {
 
         //Interactive GUI
         MinecraftServer.getCommandManager().register(new ShowGui());
+
+        MinecraftServer.getCommandManager().register(new InstanceCMD());
 
     }
 }

@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import static org.screenwork.minestomtest.Main.instanceContainer;
+import static org.screenwork.minestomtest.Main.instance;
 
 public class PlayerLogin {
 
