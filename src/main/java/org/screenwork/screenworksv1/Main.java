@@ -59,8 +59,6 @@ public class Main {
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
 
         MinecraftServer.setBrandName("ScreenWork V1");
-
-        //Testing github codespace
         
         //World Setup
         instanceContainer = instanceManager.createInstanceContainer();
