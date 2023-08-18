@@ -60,11 +60,65 @@ public class Chairs {
         if (EntityType.SLIME.equals(entity.getEntityType())) {
             for (Entity chair : chairs) {
                 if (entity.getUuid().equals(chair.getUuid())) {
-                    entity.setView(-90, 0);
-                    for (Entity passenger : chair.getPassengers()) {
-                        passenger.setView(0, -90);
+                    float yaw = entity.getPosition().yaw();
+                    switch ((int) yaw) {
+                        case 0 -> {
+                            yaw = 45;
+                            entity.setView(yaw, 0);
+                            for (Entity passenger : chair.getPassengers()) {
+                                passenger.setView(yaw, 0);
+                            }
+                        }
+                        case 45 -> {
+                            yaw = 90;
+                            entity.setView(yaw, 0);
+                            for (Entity passenger : chair.getPassengers()) {
+                                passenger.setView(yaw, 0);
+                            }
+                        }
+                        case 90 -> {
+                            yaw = 135;
+                            entity.setView(yaw, 0);
+                            for (Entity passenger : chair.getPassengers()) {
+                                passenger.setView(yaw, 0);
+                            }
+                        }
+                        case 135 -> {
+                            yaw = 180;
+                            entity.setView(yaw, 0);
+                            for (Entity passenger : chair.getPassengers()) {
+                                passenger.setView(yaw, 0);
+                            }
+                        }
+                        case 180 -> {
+                            yaw = -135;
+                            entity.setView(yaw, 0);
+                            for (Entity passenger : chair.getPassengers()) {
+                                passenger.setView(yaw, 0);
+                            }
+                        }
+                        case -135 -> {
+                            yaw = -90;
+                            entity.setView(yaw, 0);
+                            for (Entity passenger : chair.getPassengers()) {
+                                passenger.setView(yaw, 0);
+                            }
+                        }
+                        case -90 -> {
+                            yaw = -45;
+                            entity.setView(yaw, 0);
+                            for (Entity passenger : chair.getPassengers()) {
+                                passenger.setView(yaw, 0);
+                            }
+                        }
+                        case -45 -> {
+                            yaw = 0;
+                            entity.setView(yaw, 0);
+                            for (Entity passenger : chair.getPassengers()) {
+                                passenger.setView(yaw, 0);
+                            }
+                        }
                     }
-                    event.getPlayer().sendMessage("Rotated the entity by 45 degrees.");
                 }
             }
         }
