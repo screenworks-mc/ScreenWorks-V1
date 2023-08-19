@@ -1,6 +1,8 @@
 package org.screenwork.screenworksv1.testing;
 
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.*;
@@ -40,7 +42,6 @@ public class Chairs {
                         Pos standingPos = new Pos(player.getPosition().x() + 0.5, player.getPosition().y(), player.getPosition().z() + 0.5);
                         player.teleport(standingPos);
                         player.facePosition(Player.FacePoint.FEET, new Pos(chair.getPosition().x() + 0, chair.getPosition().y() - 1, chair.getPosition().z() + 0));
-                        player.sendMessage("You stand up from the chair.");
                     }
                 }
             }
@@ -118,7 +119,6 @@ public class Chairs {
                                 passenger.setView(yaw, 0);
                             }
                         }
-
                     }
                 }
             }
@@ -144,13 +144,11 @@ public class Chairs {
     private void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         Pos playerPos = player.getPosition();
-
         for (Entity chair : chairs) {
             Pos chairPos = chair.getPosition();
             if (playerPos.distance(chairPos) < 0.5) {
                 if (!chair.getPassengers().contains(event.getPlayer())) {
                     chair.addPassenger(player);
-                    player.sendMessage("You are sitting in a chair.");
                 }
             }
         }
