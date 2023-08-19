@@ -118,6 +118,7 @@ public class Chairs {
                                 passenger.setView(yaw, 0);
                             }
                         }
+
                     }
                 }
             }
