@@ -51,6 +51,9 @@ dependencies {
     implementation('kiipy:MineScreen:MineScreen-1.0.3-dev')
     implementation "org.jetbrains.skija:skija-windows:0.93.6"
 
+    // MongoDB
+    implementation 'org.mongodb:mongodb-driver-sync:4.10.2'
+
 }
 
 jar {

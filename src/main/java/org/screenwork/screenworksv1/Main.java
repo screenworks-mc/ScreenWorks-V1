@@ -33,6 +33,12 @@ import org.screenwork.screenworksv1.testing.sdqnger.VerificationData;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationSys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.bson.Document;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -57,6 +63,17 @@ public class Main {
         MinecraftServer minecraftServer = MinecraftServer.init();
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
+
+        //MongoDB Setup
+
+        //Connection URL
+        String uri = "";
+
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("screenworks-v1");
+            MongoCollection<Document> collection = database.getCollection("t");
+
+        }
 
         MinecraftServer.setBrandName("ScreenWork V1");
         
