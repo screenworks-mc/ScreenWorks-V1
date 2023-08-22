@@ -16,6 +16,7 @@ import net.minestom.server.network.packet.client.play.ClientSteerVehiclePacket;
 import net.minestom.server.potion.Potion;
 import net.minestom.server.potion.PotionEffect;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
