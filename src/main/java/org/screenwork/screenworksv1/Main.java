@@ -31,6 +31,7 @@ import org.screenwork.screenworksv1.testing.cake.InstanceCMD;
 import org.screenwork.screenworksv1.testing.sdqnger.ShowGui;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationData;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationSys;
+import org.screenwork.screenworksv1.testing.cake.tycoon.Tycoon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.bson.Document;
@@ -114,6 +115,8 @@ public class Main {
 
         new VerificationData();
         new VerificationSys();
+
+        new Tycoon();
 
     }
 

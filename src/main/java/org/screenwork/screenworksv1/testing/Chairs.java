@@ -1,11 +1,11 @@
 package org.screenwork.screenworksv1.testing;
 
-import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
-import net.minestom.server.entity.*;
+import net.minestom.server.entity.Entity;
+import net.minestom.server.entity.EntityType;
+import net.minestom.server.entity.Player;
 import net.minestom.server.entity.metadata.display.ItemDisplayMeta;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.*;
@@ -13,15 +13,19 @@ import net.minestom.server.instance.Instance;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.network.packet.client.play.ClientSteerVehiclePacket;
+import net.minestom.server.network.packet.server.play.EntityEffectPacket;
 import net.minestom.server.potion.Potion;
 import net.minestom.server.potion.PotionEffect;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Chairs {
 
     private final List<Entity> chairs = new ArrayList<>();
+    private static Potion INVIS = new Potion(PotionEffect.INVISIBILITY, (byte) 1, 100);
 
     public Chairs() {
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
