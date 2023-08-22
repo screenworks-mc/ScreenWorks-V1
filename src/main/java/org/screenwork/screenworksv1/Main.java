@@ -70,11 +70,11 @@ public class Main {
         //Connection URL
         String uri = "";
 
-        try (MongoClient mongoClient = MongoClients.create(uri)) {
+        /* try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("screenworks-v1");
             MongoCollection<Document> collection = database.getCollection("t");
 
-        }
+        } */
 
         MinecraftServer.setBrandName("ScreenWork V1");
         

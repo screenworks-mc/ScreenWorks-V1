@@ -13,14 +13,11 @@ import net.minestom.server.instance.Instance;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.network.packet.client.play.ClientSteerVehiclePacket;
-import net.minestom.server.network.packet.server.play.EntityEffectPacket;
 import net.minestom.server.potion.Potion;
 import net.minestom.server.potion.PotionEffect;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Chairs {
 
@@ -61,74 +58,26 @@ public class Chairs {
     }
 
     private void onEntityInteract(PlayerEntityInteractEvent event) {
+        if (!Player.Hand.MAIN.equals(event.getHand())) return;
         Entity entity = event.getTarget();
-        if (EntityType.SLIME.equals(entity.getEntityType())) {
-            for (Entity chair : chairs) {
-                if (entity.getUuid().equals(chair.getUuid())) {
-                    float yaw = entity.getPosition().yaw();
-                    switch ((int) yaw) {
-                        case 0 -> {
-                            yaw = 45;
-                            entity.setView(yaw, 0);
-                            for (Entity passenger : chair.getPassengers()) {
-                                passenger.setView(yaw, 0);
-                            }
-                        }
-                        case 45 -> {
-                            yaw = 90;
-                            entity.setView(yaw, 0);
-                            for (Entity passenger : chair.getPassengers()) {
-                                passenger.setView(yaw, 0);
-                            }
-                        }
-                        case 90 -> {
-                            yaw = 135;
-                            entity.setView(yaw, 0);
-                            for (Entity passenger : chair.getPassengers()) {
-                                passenger.setView(yaw, 0);
-                            }
-                        }
-                        case 135 -> {
-                            yaw = 180;
-                            entity.setView(yaw, 0);
-                            for (Entity passenger : chair.getPassengers()) {
-                                passenger.setView(yaw, 0);
-                            }
-                        }
-                        case 180 -> {
-                            yaw = -135;
-                            entity.setView(yaw, 0);
-                            for (Entity passenger : chair.getPassengers()) {
-                                passenger.setView(yaw, 0);
-                            }
-                        }
-                        case -135 -> {
-                            yaw = -90;
-                            entity.setView(yaw, 0);
-                            for (Entity passenger : chair.getPassengers()) {
-                                passenger.setView(yaw, 0);
-                            }
-                        }
-                        case -90 -> {
-                            yaw = -45;
-                            entity.setView(yaw, 0);
-                            for (Entity passenger : chair.getPassengers()) {
-                                passenger.setView(yaw, 0);
-                            }
-                        }
-                        case -45 -> {
-                            yaw = 0;
-                            entity.setView(yaw, 0);
-                            for (Entity passenger : chair.getPassengers()) {
-                                passenger.setView(yaw, 0);
-                            }
-                        }
-                    }
-                }
-            }
+        if (!isChair(entity)) return;
+
+        float yaw = entity.getPosition().yaw() + 45f;
+
+        entity.setView(yaw, 0);
+        for (Entity passenger : entity.getPassengers()) {
+            passenger.setView(yaw, 0);
         }
     }
 
+    private boolean isChair(Entity entity) {
+        for (Entity chair : chairs) {
+            if (entity.getUuid().equals(chair.getUuid())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void onPlayerBlockInteract(PlayerBlockInteractEvent event) {
         Player player = event.getPlayer();
@@ -161,6 +110,7 @@ public class Chairs {
     private void spawnChairEntity(Instance instance, Pos position) {
         Entity chairEntity = new Entity(EntityType.SLIME);
         chairEntity.setNoGravity(true);
+        chairEntity.getEntityMeta().setInvisible(true);
         chairEntity.addEffect(new Potion(PotionEffect.INVISIBILITY, (byte) 100, 300));
         chairEntity.setInstance(instance);
         chairEntity.teleport(new Pos(position.x(), position.y() + 0.1, position.z()));
