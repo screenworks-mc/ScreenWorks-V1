@@ -29,7 +29,7 @@ public class Lightspeed extends Command {
 
         addSyntax((sender, context) -> {
             if (!sender.isPlayer()) {
-                sender.sendMessage("Only players can use this command.");
+                sender.sendMessage("Only players can use this command!");
                 return;
             }
             Entity player = sender.asPlayer();
