@@ -20,7 +20,6 @@ public class ShowGui extends Command {
             ScreenGui gui = StartMenuGui.init();
 
             player.setInstance(gui.instance());
-
             player.teleport(new Pos(0, 1, 0));
 
             gui.show(sender.asPlayer());
