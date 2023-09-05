@@ -7,6 +7,7 @@ import net.minestom.server.instance.block.Block;
 import net.minestom.server.world.DimensionType;
 import nl.kiipdevelopment.minescreen.MineScreen;
 import org.screenwork.screenworksv1.blocks.ItemFrame;
+import org.screenwork.screenworksv1.chase.MSummonCMD;
 import org.screenwork.screenworksv1.commands.*;
 import org.screenwork.screenworksv1.mbr.EditEvents;
 import org.screenwork.screenworksv1.mbr.SetCMD;
@@ -172,5 +173,7 @@ public class Main {
 
         MinecraftServer.getCommandManager().register(new InstanceCMD());
 
+        // Chase
+        MinecraftServer.getCommandManager().register(new MSummonCMD());
     }
 }
