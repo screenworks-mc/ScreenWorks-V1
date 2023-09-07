@@ -11,6 +11,8 @@ import net.minestom.server.entity.ai.goal.RandomStrollGoal;
 import net.minestom.server.entity.ai.target.ClosestEntityTarget;
 import net.minestom.server.entity.ai.target.LastEntityDamagerTarget;
 import net.minestom.server.entity.metadata.display.ItemDisplayMeta;
+import net.minestom.server.entity.pathfinding.NavigableEntity;
+import net.minestom.server.entity.pathfinding.Navigator;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
@@ -50,6 +52,8 @@ public class MSummonCMD extends Command {
             displayMeta.setCustomName(Component.text("Display Item"));
             chaser.addPassenger(chairItemDisplay);
             memeList.add(chaser);
+            Navigator runner = new Navigator(chaser);
+            runner.setPathTo(sender.asPlayer().getPosition());
         });
 
     }
