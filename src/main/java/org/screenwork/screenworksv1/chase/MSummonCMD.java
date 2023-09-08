@@ -60,14 +60,7 @@ public class MSummonCMD extends Command {
 
             // Pathfinding using Navigator
             Navigator runner = new Navigator(chaser);
-
-            // Pathfinding using Hydrazine
-            final HydrazinePathFinder pathFinder = new HydrazinePathFinder((IPathingEntity) chaser, (IInstanceSpace) sender.asPlayer().getInstance());
-            IPath path = pathFinder.initiatePathTo(new Vec3d(sender.asPlayer().getPosition().x() + 5, sender.asPlayer().getPosition().y(), sender.asPlayer().getPosition().z() + 5));
-            if (path != null)
-                do {
-                    path = pathFinder.updatePathFor((IPathingEntity) chaser);
-                } while (MinecraftServer.getServer().isOpen());
+            runner.moveTowards(new Pos(sender.asPlayer().getPosition().x() + 5, sender.asPlayer().getPosition().y(), sender.asPlayer().getPosition().z() + 5), 3);
         });
 
     }
