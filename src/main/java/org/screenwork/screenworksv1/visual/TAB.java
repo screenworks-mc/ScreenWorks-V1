@@ -17,7 +17,14 @@ public class TAB {
                     .append(Component.text("                                                            "))
                     .build();
 
-            event.getPlayer().sendPlayerListHeaderAndFooter((Component) header, (Component) Component.text("hehe"));
+            final TextComponent footer = Component.text()
+                    .append(Component.newline())
+                    .append(Component.text("screenworks.net").color(NamedTextColor.GRAY))
+                    .append(Component.newline())
+                    .append(Component.text("                                                            "))
+                    .build();
+
+            event.getPlayer().sendPlayerListHeaderAndFooter((Component) header, (Component) footer);
         });
     }
 }
