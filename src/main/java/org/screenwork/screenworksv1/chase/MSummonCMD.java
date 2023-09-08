@@ -60,7 +60,10 @@ public class MSummonCMD extends Command {
 
             // Pathfinding using Navigator
             Navigator runner = new Navigator(chaser);
-            runner.moveTowards(new Pos(sender.asPlayer().getPosition().x() + 5, sender.asPlayer().getPosition().y(), sender.asPlayer().getPosition().z() + 5), 3);
+            runner.setPathTo(new Pos(sender.asPlayer().getPosition().x() + 50, sender.asPlayer().getPosition().y(), sender.asPlayer().getPosition().z() + 50));
+            while ((MinecraftServer.getServer().isOpen()) && (!(runner == null))) {
+                runner.tick();
+            }
         });
 
     }
