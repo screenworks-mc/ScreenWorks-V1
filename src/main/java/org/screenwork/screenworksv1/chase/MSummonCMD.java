@@ -1,5 +1,10 @@
 package org.screenwork.screenworksv1.chase;
 
+import com.extollit.gaming.ai.path.HydrazinePathFinder;
+import com.extollit.gaming.ai.path.model.IInstanceSpace;
+import com.extollit.gaming.ai.path.model.IPath;
+import com.extollit.gaming.ai.path.model.IPathingEntity;
+import com.extollit.linalg.immutable.Vec3d;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.Command;
@@ -39,7 +44,7 @@ public class MSummonCMD extends Command {
             int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
             Entity chaser = new Entity(EntityType.ZOMBIE);
             chaser.setNoGravity(true);
-            chaser.getEntityMeta().setInvisible(true);
+            chaser.getEntityMeta().setInvisible(false);
             chaser.setInstance(sender.asPlayer().getInstance());
             chaser.teleport(new Pos(sender.asPlayer().getPosition().x(), sender.asPlayer().getPosition().y() + 0.1, sender.asPlayer().getPosition().z()));
             ItemStack meme = ItemStack.builder(Material.PAPER).meta(metaBuilder -> {
@@ -52,8 +57,17 @@ public class MSummonCMD extends Command {
             displayMeta.setCustomName(Component.text("Display Item"));
             chaser.addPassenger(chairItemDisplay);
             memeList.add(chaser);
+
+            // Pathfinding using Navigator
             Navigator runner = new Navigator(chaser);
-            runner.setPathTo(sender.asPlayer().getPosition());
+
+            // Pathfinding using Hydrazine
+            final HydrazinePathFinder pathFinder = new HydrazinePathFinder((IPathingEntity) chaser, (IInstanceSpace) sender.asPlayer().getInstance());
+            IPath path = pathFinder.initiatePathTo(new Vec3d(sender.asPlayer().getPosition().x() + 5, sender.asPlayer().getPosition().y(), sender.asPlayer().getPosition().z() + 5));
+            if (path != null)
+                do {
+                    path = pathFinder.updatePathFor((IPathingEntity) chaser);
+                } while (MinecraftServer.getServer().isOpen());
         });
 
     }
