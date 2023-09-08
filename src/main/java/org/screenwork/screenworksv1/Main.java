@@ -1,6 +1,7 @@
 package org.screenwork.screenworksv1;
 
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.command.ConsoleSender;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
@@ -33,6 +34,8 @@ import org.screenwork.screenworksv1.testing.sdqnger.ShowGui;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationData;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationSys;
 import org.screenwork.screenworksv1.testing.cake.tycoon.Tycoon;
+import org.screenwork.screenworksv1.visual.Notifications;
+import org.screenwork.screenworksv1.visual.Scoreboard;
 import org.screenwork.screenworksv1.visual.TAB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +49,7 @@ import static com.mongodb.client.model.Filters.eq;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.logging.ConsoleHandler;
 
 public class Main {
 
@@ -119,6 +123,8 @@ public class Main {
         new VerificationSys();
 
         new TAB();
+        new Notifications();
+        new Scoreboard();
 
         new Tycoon();
 
