@@ -24,7 +24,7 @@ public class Notifications {
         );
 
         MinecraftServer.getGlobalEventHandler().addListener(PlayerLoginEvent.class, event -> {
-            // NotificationCenter.send(notification, Objects.requireNonNull(MinecraftServer.getConnectionManager().findPlayer("cake5diamond")));
+            NotificationCenter.send(notification, event.getPlayer());
         });
     }
 }

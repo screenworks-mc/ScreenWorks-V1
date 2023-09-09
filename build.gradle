@@ -27,7 +27,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
 
     // Minestom Dependencies
-    implementation 'dev.hollowcube:minestom-ce:74ca1041f3'
+    implementation 'dev.hollowcube:minestom-ce:34558e75ee'
     implementation("net.dv8tion:JDA:5.0.0-beta.5")
 
     // Discord Dependencies
