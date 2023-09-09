@@ -32,7 +32,7 @@ public class KillCMD extends Command {
                     for (Player player : instance.getPlayers()) {
                         killEntity(player);
                     }
-                    sender.sendMessage(Component.text("All players were just KILLED.", NamedTextColor.DARK_RED));
+                    sender.sendMessage(Component.text("All players were just absolutely ANNIHILATED.", NamedTextColor.DARK_RED));
                 } else {
                     Player player = MinecraftServer.getConnectionManager().findPlayer(target);
                     if (player != null) {
