@@ -34,6 +34,7 @@ import org.screenwork.screenworksv1.testing.sdqnger.ShowGui;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationData;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationSys;
 import org.screenwork.screenworksv1.testing.cake.tycoon.Tycoon;
+import org.screenwork.screenworksv1.testing.xdadx.EffectsCMD;
 import org.screenwork.screenworksv1.visual.Notifications;
 import org.screenwork.screenworksv1.visual.Scoreboard;
 import org.screenwork.screenworksv1.visual.TAB;
@@ -143,6 +144,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new BanCMD());
         MinecraftServer.getCommandManager().register(new UnbanCMD());
         MinecraftServer.getCommandManager().register(new ToBlockCMD());
+        MinecraftServer.getCommandManager().register(new EffectsCMD());
 
         // Player Commands
         MinecraftServer.getCommandManager().register(new MessageCMD());
