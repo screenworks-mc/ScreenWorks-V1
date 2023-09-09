@@ -18,9 +18,9 @@ import java.util.Objects;
 public class Notifications {
     public Notifications() {
         Notification notification = new Notification(
-                Component.text("Hello, Notifications!", NamedTextColor.GREEN),
-                FrameType.GOAL,
-                ItemStack.of(Material.GOLD_INGOT)
+                Component.text("You returned!", NamedTextColor.GREEN),
+                FrameType.CHALLENGE,
+                ItemStack.of(Material.TOTEM_OF_UNDYING)
         );
 
         MinecraftServer.getGlobalEventHandler().addListener(PlayerLoginEvent.class, event -> {
