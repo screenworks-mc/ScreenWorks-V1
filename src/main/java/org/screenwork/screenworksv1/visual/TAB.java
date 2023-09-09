@@ -12,7 +12,7 @@ public class TAB {
         MinecraftServer.getGlobalEventHandler().addListener(PlayerLoginEvent.class, event -> {
             final TextComponent header = Component.text()
                     .append(Component.newline())
-                    .append(Component.text("ScreenWorks").color(NamedTextColor.DARK_GRAY).decoration(TextDecoration.BOLD, TextDecoration.State.TRUE))
+                    .append(Component.text("ScreenWorks").color(NamedTextColor.GOLD).decoration(TextDecoration.BOLD, TextDecoration.State.TRUE))
                     .append(Component.newline())
                     .append(Component.text("                                                            "))
                     .build();

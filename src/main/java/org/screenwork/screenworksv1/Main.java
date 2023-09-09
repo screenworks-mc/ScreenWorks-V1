@@ -114,7 +114,6 @@ public class Main {
         new EditEvents();
 
         new Attributes();
-        System.out.println("Attributes class instantiated");
 
         new ItemFrame();
         new Chairs();
