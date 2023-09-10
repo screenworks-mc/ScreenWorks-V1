@@ -3,6 +3,7 @@ package org.screenwork.screenworksv1;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.ConsoleSender;
 import net.minestom.server.event.GlobalEventHandler;
+import net.minestom.server.extras.lan.OpenToLAN;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.world.DimensionType;
@@ -100,6 +101,9 @@ public class Main {
         setupEvents();
 
         minecraftServer.start("0.0.0.0", 25566);
+
+        // LAN
+        OpenToLAN.open();
     }
 
     private static void setupEvents() {
