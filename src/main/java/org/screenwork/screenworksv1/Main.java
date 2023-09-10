@@ -150,8 +150,10 @@ public class Main {
         MinecraftServer.getCommandManager().register(new ToBlockCMD());
         MinecraftServer.getCommandManager().register(new EffectsCMD());
 
+
         // Player Commands
         MinecraftServer.getCommandManager().register(new MessageCMD());
+        MinecraftServer.getCommandManager().register(new HelpCMD());
 
         //World Manager
         MinecraftServer.getCommandManager().register(new WorldTP());
