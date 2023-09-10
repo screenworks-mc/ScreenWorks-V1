@@ -34,6 +34,7 @@ public class TeleportCMD extends Command {
     }
 
     private void teleportTo(CommandSender sender, Pos coords, String player) {
+        sender.asPlayer().setInstance(MinecraftServer.getConnectionManager().findPlayer(player).getInstance());
         sender.asPlayer().teleport(coords);
         sender.sendMessage("You teleported to " + player);
     }
