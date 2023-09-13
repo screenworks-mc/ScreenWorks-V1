@@ -14,6 +14,7 @@ import org.screenwork.screenworksv1.commands.*;
 import org.screenwork.screenworksv1.mbr.EditEvents;
 import org.screenwork.screenworksv1.mbr.SetCMD;
 import org.screenwork.screenworksv1.mbr.WandCMD;
+import org.screenwork.screenworksv1.permissions.PermissionCMD;
 import org.screenwork.screenworksv1.space.Attributes;
 import org.screenwork.screenworksv1.space.Lightspeed;
 import org.screenwork.screenworksv1.events.*;
@@ -188,5 +189,8 @@ public class Main {
 
         // Chase
         MinecraftServer.getCommandManager().register(new MSummonCMD());
+
+        // Permissions
+        MinecraftServer.getCommandManager().register(new PermissionCMD());
     }
 }
