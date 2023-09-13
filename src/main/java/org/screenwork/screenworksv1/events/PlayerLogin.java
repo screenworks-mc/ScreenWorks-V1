@@ -20,6 +20,7 @@ import org.screenwork.screenworksv1.Main;
 import org.screenwork.screenworksv1.moderationsys.profile.BanID;
 
 import static org.screenwork.screenworksv1.Main.instanceContainer;
+import static org.screenwork.screenworksv1.permissions.Permissions.save;
 
 public class PlayerLogin {
 
@@ -56,5 +57,7 @@ public class PlayerLogin {
                 instanceContainer.setChunkSupplier(LightingChunk::new);
                 player.setRespawnPoint(new Pos(0, 42, 0));
             });
+
+            save();
         }
 }

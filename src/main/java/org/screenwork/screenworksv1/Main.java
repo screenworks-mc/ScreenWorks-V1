@@ -48,6 +48,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
+import static org.screenwork.screenworksv1.permissions.Permissions.load;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -105,6 +106,9 @@ public class Main {
 
         // LAN
         OpenToLAN.open();
+
+        // Permissions
+        load();
     }
 
     private static void setupEvents() {

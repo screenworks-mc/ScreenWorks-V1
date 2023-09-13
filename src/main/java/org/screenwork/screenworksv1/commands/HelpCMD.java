@@ -15,10 +15,10 @@ public class HelpCMD extends Command {
 
         addSyntax((sender, context) -> {
             sender.sendMessage(Component.text("--- ScreenWorks Help ---", NamedTextColor.GRAY));
-            sender.sendMessage(Component.text("To report a player use /report!", NamedTextColor.GREEN));
-            sender.sendMessage(Component.text("For support, open a ticket in our discord /discord", NamedTextColor.GREEN));
-            sender.sendMessage(Component.text("For our hub do /hub", NamedTextColor.GREEN));;
-            sender.sendMessage(Component.text("For rules do /rules", NamedTextColor.GREEN));
+            sender.sendMessage(Component.text("To report a player use /report!", NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text("For support, open a ticket in our discord /discord", NamedTextColor.DARK_AQUA));
+            sender.sendMessage(Component.text("For our hub do /hub", NamedTextColor.DARK_AQUA));;
+            sender.sendMessage(Component.text("For rules do /rules", NamedTextColor.DARK_AQUA));
         });
     }
 }
