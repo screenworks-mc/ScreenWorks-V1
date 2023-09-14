@@ -8,8 +8,8 @@ public class WebTest {
     public static void launchWeb() {
         final NgrokClient ngrokClient = new NgrokClient.Builder().build();
         final Tunnel httpTunnel = ngrokClient.connect();
-
-        System.out.println(httpTunnel.getPublicUrl());
+        System.out.println("URI + " + httpTunnel.getUri());
+        System.out.println("PUB. URL + " + httpTunnel.getPublicUrl());
     }
 
 }
