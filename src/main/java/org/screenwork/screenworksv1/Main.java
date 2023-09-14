@@ -48,7 +48,9 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
+import static org.screenwork.screenworksv1.UIEx.MinestomUI.launch;
 import static org.screenwork.screenworksv1.permissions.Permissions.load;
+import static org.screenwork.screenworksv1.testing.cake.WebTest.launchWeb;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -109,6 +111,12 @@ public class Main {
 
         // Permissions
         load();
+
+        // ImGUI
+        launch();
+
+        // Possible Web GUI
+        launchWeb();
     }
 
     private static void setupEvents() {

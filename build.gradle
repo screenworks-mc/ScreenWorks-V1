@@ -33,6 +33,12 @@ dependencies {
     // Discord Dependencies
     implementation group: 'club.minnced', name: 'discord-webhooks', version: '0.8.2'
 
+    // ImGUI
+    implementation 'io.github.spair:imgui-java-app:1.86.2'
+
+    // Java ngrok
+    implementation 'com.github.alexdlaird:java-ngrok:2.2.1'
+
     // Logging Dependencies
     implementation 'ch.qos.logback:logback-core:1.3.5'
     testImplementation 'org.slf4j:slf4j-api:2.0.4'
