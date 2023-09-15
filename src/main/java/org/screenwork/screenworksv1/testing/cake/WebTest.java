@@ -51,6 +51,7 @@ public class WebTest {
         final CreateTunnel tunnel = new CreateTunnel.Builder()
                 .withName("swadmin")
                 .withAddr(8080)
+                .withAuth("swadmin!:swadmin!")
                 .build();
 
         ngrokClient.connect(tunnel);
