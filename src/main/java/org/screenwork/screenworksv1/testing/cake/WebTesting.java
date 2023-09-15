@@ -1,5 +1,7 @@
 package org.screenwork.screenworksv1.testing.cake;
-
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +17,9 @@ public class WebTesting {
 }
 
 @RestController
-@RequestMapping("/api") // Base path for your RESTful API
+@RequestMapping("/api")
 class MyController {
+
 
     @GetMapping("/hello")
     public String hello() {

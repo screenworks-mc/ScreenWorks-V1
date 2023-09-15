@@ -6,11 +6,17 @@ import com.github.alexdlaird.ngrok.protocol.CreateTunnel;
 import com.github.alexdlaird.ngrok.protocol.Region;
 import com.github.alexdlaird.ngrok.protocol.Tunnel;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class WebTest {
+
+    private static Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 
     private static NgrokClient ngrokClient;
 
@@ -33,6 +39,7 @@ public class WebTest {
     }
 
     public static void launchWeb() {
+        root.setLevel(Level.ERROR);
         stopNgrok();
 
         if (ngrokClient == null) {
@@ -45,8 +52,21 @@ public class WebTest {
                 .withName("swadmin")
                 .withAddr(8080)
                 .build();
-        if (ngrokClient.getTunnels() != null) {
-            ngrokClient.connect(tunnel);
+
+        ngrokClient.connect(tunnel);
+
+        Tunnel swadminTunnel = null;
+        for (Tunnel t : ngrokClient.getTunnels()) {
+            if ("swadmin".equals(t.getName())) {
+                swadminTunnel = t;
+                break;
+            }
+        }
+
+        if (swadminTunnel != null) {
+            System.out.println("Admin tunnel initialized successfully on public URL: " + swadminTunnel.getPublicUrl());
+        } else {
+            System.out.println("Admin tunnel not found.");
         }
     }
 }
