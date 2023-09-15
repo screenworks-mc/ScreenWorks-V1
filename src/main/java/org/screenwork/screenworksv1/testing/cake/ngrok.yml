@@ -1,0 +1,11 @@
+authtoken: 2VPFPZ4CirAS7Y3lgsR2cJPLJXD_XFqve5tmLVQTazq27Dno
+connect_timeout: 30s
+log_level: info
+region: us
+update_channel: stable
+update_check: false
+version: 2
+tunnels:
+  swadmin:
+    addr: 8080
+    proto: http

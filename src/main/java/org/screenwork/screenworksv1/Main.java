@@ -32,6 +32,7 @@ import org.screenwork.screenworksv1.moderationsys.commands.KickCMD;
 import org.screenwork.screenworksv1.moderationsys.commands.UnbanCMD;
 import org.screenwork.screenworksv1.commands.worldmanager.WorldManagerCMD;
 import org.screenwork.screenworksv1.testing.cake.InstanceCMD;
+import org.screenwork.screenworksv1.testing.cake.WebTesting;
 import org.screenwork.screenworksv1.testing.sdqnger.ShowGui;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationData;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationSys;
@@ -42,12 +43,8 @@ import org.screenwork.screenworksv1.visual.Scoreboard;
 import org.screenwork.screenworksv1.visual.TAB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.bson.Document;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import static com.mongodb.client.model.Filters.eq;
+import org.springframework.boot.SpringApplication;
+
 import static org.screenwork.screenworksv1.UIEx.MinestomUI.launch;
 import static org.screenwork.screenworksv1.permissions.Permissions.load;
 import static org.screenwork.screenworksv1.testing.cake.WebTest.launchWeb;
@@ -113,10 +110,17 @@ public class Main {
         load();
 
         // ImGUI
-        launch();
+        // launch();
 
-        // Possible Web GUI
+        // Web Local
+        launchWebREST();
+
+        // ngrok Web Tunneling
         launchWeb();
+    }
+
+    public static void launchWebREST() {
+        SpringApplication.run(WebTesting.class);
     }
 
     private static void setupEvents() {

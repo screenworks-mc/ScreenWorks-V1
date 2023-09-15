@@ -26,6 +26,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok:1.18.24'
 
     // Minestom Dependencies
@@ -60,7 +61,7 @@ dependencies {
     implementation "org.jetbrains.skija:skija-windows:0.93.6"
 
     // MongoDB
-    implementation 'org.mongodb:mongodb-driver-sync:4.10.2'
+    // implementation 'org.mongodb:mongodb-driver-sync:4.10.2'
 
     // Spring Web
     implementation 'org.springframework.boot:spring-boot-starter'
