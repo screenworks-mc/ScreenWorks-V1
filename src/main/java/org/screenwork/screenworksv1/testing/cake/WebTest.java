@@ -34,7 +34,7 @@ public class WebTest {
             Process process = processBuilder.start();
             process.waitFor();
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("ngrok is not running!");
         }
     }
 
