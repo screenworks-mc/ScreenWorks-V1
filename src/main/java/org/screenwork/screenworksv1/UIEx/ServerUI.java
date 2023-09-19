@@ -23,7 +23,7 @@ final class ServerUI extends Application {
         var snapshot = this.snapshotReference;
         if (snapshot == null) return;
 
-        ImGui.begin("Instances");
+        ImGui.begin("Instances!");
         snapshot.instances().forEach(instance -> {
             DimensionType dimension = instance.dimensionType();
             if (ImGui.treeNode(dimension.toString())) {
