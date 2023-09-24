@@ -61,10 +61,13 @@ dependencies {
     implementation "org.jetbrains.skija:skija-windows:0.93.6"
 
     // MongoDB
-    // implementation 'org.mongodb:mongodb-driver-sync:4.10.2'
+    // implementation 'org.mongodb:mongodb-driver-sync:4.9.1'
 
     // Spring Web
     implementation 'org.springframework.boot:spring-boot-starter'
+
+    // Bootstrap
+    implementation 'org.webjars:bootstrap:5.3.1'
 }
 
 jar {

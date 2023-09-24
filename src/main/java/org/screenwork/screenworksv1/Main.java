@@ -1,7 +1,6 @@
 package org.screenwork.screenworksv1;
 
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.command.ConsoleSender;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.extras.lan.OpenToLAN;
 import net.minestom.server.instance.*;
@@ -32,7 +31,6 @@ import org.screenwork.screenworksv1.moderationsys.commands.KickCMD;
 import org.screenwork.screenworksv1.moderationsys.commands.UnbanCMD;
 import org.screenwork.screenworksv1.commands.worldmanager.WorldManagerCMD;
 import org.screenwork.screenworksv1.testing.cake.InstanceCMD;
-import org.screenwork.screenworksv1.testing.cake.WebTesting;
 import org.screenwork.screenworksv1.testing.sdqnger.ShowGui;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationData;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationSys;
@@ -45,14 +43,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 
-import static org.screenwork.screenworksv1.UIEx.MinestomUI.launch;
 import static org.screenwork.screenworksv1.permissions.Permissions.load;
-import static org.screenwork.screenworksv1.testing.cake.WebTest.launchWeb;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.logging.ConsoleHandler;
 
 public class Main {
 
@@ -111,16 +106,6 @@ public class Main {
 
         // ImGUI
         // launch();
-
-        // Web Local
-        launchWebREST();
-
-        // ngrok Web Tunneling
-        launchWeb();
-    }
-
-    public static void launchWebREST() {
-        SpringApplication.run(WebTesting.class);
     }
 
     private static void setupEvents() {
