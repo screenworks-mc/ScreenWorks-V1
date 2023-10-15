@@ -35,13 +35,11 @@ import org.screenwork.screenworksv1.testing.sdqnger.ShowGui;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationData;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationSys;
 import org.screenwork.screenworksv1.testing.cake.tycoon.Tycoon;
-import org.screenwork.screenworksv1.testing.xdadx.EffectsCMD;
 import org.screenwork.screenworksv1.visual.Notifications;
 import org.screenwork.screenworksv1.visual.Scoreboard;
 import org.screenwork.screenworksv1.visual.TAB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
 
 import static org.screenwork.screenworksv1.permissions.Permissions.load;
 
@@ -150,7 +148,6 @@ public class Main {
         MinecraftServer.getCommandManager().register(new BanCMD());
         MinecraftServer.getCommandManager().register(new UnbanCMD());
         MinecraftServer.getCommandManager().register(new ToBlockCMD());
-        MinecraftServer.getCommandManager().register(new EffectsCMD());
 
 
         // Player Commands
