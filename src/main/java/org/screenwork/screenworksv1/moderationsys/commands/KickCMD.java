@@ -29,11 +29,6 @@ public class KickCMD extends Command {
             suggestion.addEntry(new SuggestionEntry("\"Hacking\""));
             suggestion.addEntry(new SuggestionEntry("\"Staff Disrespect\""));
             suggestion.addEntry(new SuggestionEntry("\"Being Annoying\""));
-            suggestion.addEntry(new SuggestionEntry("\"Spamming\""));
-            suggestion.addEntry(new SuggestionEntry("\"Slurs\""));
-            suggestion.addEntry(new SuggestionEntry("\"Advertising\""));
-            suggestion.addEntry(new SuggestionEntry("\"Caps\""));
-            suggestion.addEntry(new SuggestionEntry("\"Other\""));
         });
 
         addSyntax((sender, context) -> {
