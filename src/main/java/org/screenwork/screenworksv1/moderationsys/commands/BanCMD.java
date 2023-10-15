@@ -32,10 +32,16 @@ public class BanCMD extends Command {
         });
 
         reasonArgument.setSuggestionCallback((sender, context, suggestion) -> {
-            suggestion.addEntry(new SuggestionEntry("\"Illegal movement modification\""));
-            suggestion.addEntry(new SuggestionEntry("\"Illegal client modification\""));
-            suggestion.addEntry(new SuggestionEntry("\"Illegal PvP/PvE modification\""));
+            suggestion.addEntry(new SuggestionEntry("\"Illegal Movement Modification\""));
+            suggestion.addEntry(new SuggestionEntry("\"Illegal Client Modification\""));
+            suggestion.addEntry(new SuggestionEntry("\"Illegal PvP/PvE Modification\""));
             suggestion.addEntry(new SuggestionEntry("\"Punishment evasion\""));
+            suggestion.addEntry(new SuggestionEntry("\"XRAY\""));
+            suggestion.addEntry(new SuggestionEntry("\"Illegal Combat Modifications\""));
+            suggestion.addEntry(new SuggestionEntry("\"Flight\""));
+            suggestion.addEntry(new SuggestionEntry("\"Slurs\""));
+            suggestion.addEntry(new SuggestionEntry("\"Staff Disrespect\""));
+            suggestion.addEntry(new SuggestionEntry("\"DDOS Threats\""));
 
         });
 
