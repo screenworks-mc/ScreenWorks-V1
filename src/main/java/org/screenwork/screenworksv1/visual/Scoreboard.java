@@ -25,7 +25,6 @@ public class Scoreboard {
 
         MinecraftServer.getGlobalEventHandler().addListener(PlayerLoginEvent.class, event -> {
             sidebar.addViewer(event.getPlayer());
-
         });
     }
 }

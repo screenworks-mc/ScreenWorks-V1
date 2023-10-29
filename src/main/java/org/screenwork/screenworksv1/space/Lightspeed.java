@@ -7,9 +7,9 @@ import net.minestom.server.command.builder.suggestion.SuggestionEntry;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.network.packet.server.play.ParticlePacket;
-import net.minestom.server.timer.TaskSchedule;
 import net.minestom.server.particle.Particle;
 import net.minestom.server.particle.ParticleCreator;
+import net.minestom.server.timer.TaskSchedule;
 
 public class Lightspeed extends Command {
 
