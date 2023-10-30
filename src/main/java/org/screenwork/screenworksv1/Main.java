@@ -70,12 +70,11 @@ public class Main {
         //MongoDB Setup
 
         //Connection URL
-        String uri = "";
+        // String uri = "mongodb+srv://drewhummer:<password>@testing.2la1bur.mongodb.net/?retryWrites=true&w=majority";
 
-        /* try (MongoClient mongoClient = MongoClients.create(uri)) {
+        /*try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("screenworks-v1");
             MongoCollection<Document> collection = database.getCollection("t");
-
         } */
 
         MinecraftServer.setBrandName("ScreenWork V1");
@@ -131,6 +130,8 @@ public class Main {
         new Scoreboard();
 
         new Tycoon();
+
+        new MongoClient();
 
     }
 
