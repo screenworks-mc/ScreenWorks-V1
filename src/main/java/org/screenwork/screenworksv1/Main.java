@@ -1,5 +1,9 @@
 package org.screenwork.screenworksv1;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.extras.lan.OpenToLAN;
@@ -7,6 +11,7 @@ import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.world.DimensionType;
 import nl.kiipdevelopment.minescreen.MineScreen;
+import org.bson.Document;
 import org.screenwork.screenworksv1.blocks.ItemFrame;
 import org.screenwork.screenworksv1.chase.MSummonCMD;
 import org.screenwork.screenworksv1.commands.*;
@@ -44,6 +49,7 @@ import org.slf4j.LoggerFactory;
 import static org.screenwork.screenworksv1.permissions.Permissions.load;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -69,13 +75,13 @@ public class Main {
 
         //MongoDB Setup
 
-        //Connection URL
-        // String uri = "mongodb+srv://drewhummer:<password>@testing.2la1bur.mongodb.net/?retryWrites=true&w=majority";
+        Connection URL;
+        String uri = "";
 
-        /*try (MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDatabase database = mongoClient.getDatabase("screenworks-v1");
-            MongoCollection<Document> collection = database.getCollection("t");
-        } */
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("");
+            MongoCollection<Document> collection = database.getCollection("");
+        }
 
         MinecraftServer.setBrandName("ScreenWork V1");
         
