@@ -1,3 +1,5 @@
+package org.screenwork.screenworksv1.testing.cake;
+
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoException;
@@ -8,7 +10,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-public class MongoClient {
+public class MongoClientConnection {
     public static void main(String[] args) {
         String connectionString = "mongodb+srv://drewhummer:I8e15bTifjokKUwr@testing.2la1bur.mongodb.net/?retryWrites=true&w=majority";
         ServerApi serverApi = ServerApi.builder()
@@ -22,7 +24,7 @@ public class MongoClient {
         try (MongoClient mongoClient = MongoClients.create(settings)) {
             try {
                 // Send a ping to confirm a successful connection
-                MongoDatabase database = mongoClient.getDatabase("admin");
+                MongoDatabase database = mongoClient.getDatabase("Testing");
                 database.runCommand(new Document("ping", 1));
                 System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
             } catch (MongoException e) {

@@ -36,6 +36,7 @@ import org.screenwork.screenworksv1.moderationsys.commands.KickCMD;
 import org.screenwork.screenworksv1.moderationsys.commands.UnbanCMD;
 import org.screenwork.screenworksv1.commands.worldmanager.WorldManagerCMD;
 import org.screenwork.screenworksv1.testing.cake.InstanceCMD;
+import org.screenwork.screenworksv1.testing.cake.MongoClientConnection;
 import org.screenwork.screenworksv1.testing.sdqnger.ShowGui;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationData;
 import org.screenwork.screenworksv1.testing.sdqnger.VerificationSys;
@@ -75,13 +76,13 @@ public class Main {
 
         //MongoDB Setup
 
-        Connection URL;
-        String uri = "";
+        // Connection URL;
+        // String uri = "";
 
-        try (MongoClient mongoClient = MongoClients.create(uri)) {
+        /* try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("");
             MongoCollection<Document> collection = database.getCollection("");
-        }
+        } */
 
         MinecraftServer.setBrandName("ScreenWork V1");
         
@@ -137,7 +138,7 @@ public class Main {
 
         new Tycoon();
 
-        new MongoClient();
+        new MongoClientConnection();
 
     }
 
