@@ -29,7 +29,10 @@ public class MongoClientConnection {
                 System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
             } catch (MongoException e) {
                 e.printStackTrace();
+                System.out.println("Failed to connect to MongoDB!");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
