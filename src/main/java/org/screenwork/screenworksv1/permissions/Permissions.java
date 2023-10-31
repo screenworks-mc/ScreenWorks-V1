@@ -1,61 +1,60 @@
 package org.screenwork.screenworksv1.permissions;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import net.minestom.server.entity.Player;
-import net.minestom.server.permission.Permission;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.model.Updates;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+import org.screenwork.screenworksv1.testing.cake.MongoClientConnection;
 
-import java.io.*;
-import java.lang.reflect.Type;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class Permissions {
 
-    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private static final Type playerPermissionsType = new TypeToken<Map<UUID, Set<String>>>() {}.getType();
+    private static final MongoClient mongoClient = MongoClientConnection.getInstance();
+    private static final MongoDatabase database = mongoClient.getDatabase("Permissions");
+    private static final MongoCollection<Document> permissionsCollection = database.getCollection("playerPermissions");
 
-    private static final File permissionsFile = new File("permissions.json");
+    public static void assign(UUID playerId, String permission) {
+        Document playerDocument = permissionsCollection.find(Filters.eq("playerId", playerId.toString())).first();
+        if (playerDocument == null) {
+            playerDocument = new Document("playerId", playerId.toString())
+                    .append("permissions", new HashSet<>());
+        }
 
-    private static Map<UUID, Set<String>> playerPermissions = new HashMap<>();
+        Set<String> permissions = playerDocument.get("permissions", Set.class);
+        permissions.add(permission);
 
-    public static void load() {
-        if (permissionsFile.exists()) {
-            try (Reader reader = new FileReader(permissionsFile)) {
-                playerPermissions = gson.fromJson(reader, playerPermissionsType);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        permissionsCollection.updateOne(
+                Filters.eq("playerId", playerId.toString()),
+                Updates.set("permissions", permissions),
+                new UpdateOptions().upsert(true)
+        );
+    }
+
+    public static void remove(UUID playerId, String permission) {
+        Document playerDocument = permissionsCollection.find(Filters.eq("playerId", playerId.toString())).first();
+        if (playerDocument != null) {
+            Set<String> permissions = playerDocument.get("permissions", Set.class);
+            permissions.remove(permission);
+
+            permissionsCollection.updateOne(
+                    Filters.eq("playerId", playerId.toString()),
+                    Updates.set("permissions", permissions)
+            );
         }
     }
 
-    public static void save() {
-        try (Writer writer = new FileWriter(permissionsFile)) {
-            gson.toJson(playerPermissions, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static Set<String> fetch(UUID playerId) {
+        Document playerDocument = permissionsCollection.find(Filters.eq("playerId", playerId.toString())).first();
+        if (playerDocument != null) {
+            return playerDocument.get("permissions", Set.class);
         }
-    }
-
-    public static void assign(Player player, Permission permission) {
-        player.addPermission(permission);
-        UUID playerId = player.getUuid();
-        playerPermissions.computeIfAbsent(playerId, uuid -> new HashSet<>()).add(permission.getPermissionName());
-        save();
-    }
-
-    public static void remove(Player player, Permission permission) {
-        player.removePermission(permission);
-        UUID playerId = player.getUuid();
-        Set<String> permissions = playerPermissions.get(playerId);
-        if (permissions != null) {
-            permissions.remove(permission.getPermissionName());
-            save();
-        }
-    }
-
-    public static Set<String> fetch(Player player) {
-        UUID playerId = player.getUuid();
-        return playerPermissions.getOrDefault(playerId, Collections.emptySet());
+        return new HashSet<>();
     }
 }

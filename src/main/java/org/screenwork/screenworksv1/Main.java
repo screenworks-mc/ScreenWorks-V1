@@ -47,8 +47,6 @@ import org.screenwork.screenworksv1.visual.TAB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.screenwork.screenworksv1.permissions.Permissions.load;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.HashMap;
@@ -105,9 +103,6 @@ public class Main {
         // LAN
         OpenToLAN.open();
 
-        // Permissions
-        load();
-
         // ImGUI
         // launch();
     }
@@ -137,9 +132,6 @@ public class Main {
         new Scoreboard();
 
         new Tycoon();
-
-        new MongoClientConnection();
-
     }
 
     private static void setupCommands() {

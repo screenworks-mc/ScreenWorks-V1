@@ -11,7 +11,7 @@ import net.minestom.server.entity.Player;
 import net.minestom.server.permission.Permission;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Set;
 
 public class PermissionCMD extends Command {
 
@@ -43,8 +43,12 @@ public class PermissionCMD extends Command {
             var permissionArgument = ArgumentType.String("permission");
 
             addSyntax((sender, context) -> {
-                Permissions.assign(Objects.requireNonNull(MinecraftServer.getConnectionManager().findPlayer(context.get(playerArgument))), new Permission(String.valueOf(context.get(permissionArgument))));
-                sender.sendMessage("Permission " + context.get(permissionArgument) + " assigned to player " + context.get(playerArgument) + ".");
+                Player targetPlayer = Objects.requireNonNull(MinecraftServer.getConnectionManager().findPlayer(context.get(playerArgument)));
+                String permission = String.valueOf(context.get(permissionArgument));
+
+                Permissions.assign(targetPlayer.getUuid(), permission);
+
+                sender.sendMessage("Permission " + permission + " assigned to player " + targetPlayer.getUsername() + ".");
             }, playerArgument, permissionArgument);
         }
     }
@@ -65,8 +69,12 @@ public class PermissionCMD extends Command {
             var permissionArgument = ArgumentType.String("permission");
 
             addSyntax((sender, context) -> {
-                Permissions.remove(Objects.requireNonNull(MinecraftServer.getConnectionManager().findPlayer(context.get(playerArgument))), new Permission(String.valueOf(context.get(permissionArgument))));
-                sender.sendMessage("Permission " + context.get(permissionArgument) + " removed from player " + context.get(playerArgument) + ".");
+                Player targetPlayer = Objects.requireNonNull(MinecraftServer.getConnectionManager().findPlayer(context.get(playerArgument)));
+                String permission = String.valueOf(context.get(permissionArgument));
+
+                Permissions.remove(targetPlayer.getUuid(), permission);
+
+                sender.sendMessage("Permission " + permission + " removed from player " + targetPlayer.getUsername() + ".");
             }, playerArgument, permissionArgument);
         }
     }
@@ -85,7 +93,11 @@ public class PermissionCMD extends Command {
             });
 
             addSyntax((sender, context) -> {
-                sender.sendMessage("Permissions belonging to " + context.get(playerArgument)+ ": " +  Permissions.fetch(Objects.requireNonNull(MinecraftServer.getConnectionManager().findPlayer(context.get(playerArgument)))));
+                Player targetPlayer = Objects.requireNonNull(MinecraftServer.getConnectionManager().findPlayer(context.get(playerArgument)));
+
+                Set<String> permissions = Permissions.fetch(targetPlayer.getUuid());
+
+                sender.sendMessage("Permissions belonging to " + targetPlayer.getUsername() + ": " + permissions);
             }, playerArgument);
         }
     }
