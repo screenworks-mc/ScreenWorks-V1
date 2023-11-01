@@ -1,5 +1,8 @@
 package org.screenwork.screenworksv1.testing;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
@@ -8,17 +11,17 @@ import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.metadata.display.ItemDisplayMeta;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.event.player.*;
+import net.minestom.server.event.player.PlayerBlockInteractEvent;
+import net.minestom.server.event.player.PlayerEntityInteractEvent;
+import net.minestom.server.event.player.PlayerMoveEvent;
+import net.minestom.server.event.player.PlayerPacketEvent;
+import net.minestom.server.event.player.PlayerSpawnEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.network.packet.client.play.ClientSteerVehiclePacket;
 import net.minestom.server.potion.Potion;
 import net.minestom.server.potion.PotionEffect;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Chairs {
 

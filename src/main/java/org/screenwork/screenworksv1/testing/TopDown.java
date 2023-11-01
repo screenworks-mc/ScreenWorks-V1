@@ -1,12 +1,16 @@
 package org.screenwork.screenworksv1.testing;
 
+import java.util.HashMap;
+import java.util.Random;
+
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.event.player.*;
+import net.minestom.server.event.player.PlayerLoginEvent;
+import net.minestom.server.event.player.PlayerPacketEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
@@ -18,9 +22,6 @@ import net.minestom.server.potion.Potion;
 import net.minestom.server.potion.PotionEffect;
 import net.minestom.server.timer.SchedulerManager;
 import net.minestom.server.timer.TaskSchedule;
-
-import java.util.HashMap;
-import java.util.Random;
 
 public class TopDown {
 

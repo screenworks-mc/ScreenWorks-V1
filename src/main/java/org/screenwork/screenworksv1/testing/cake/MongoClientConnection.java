@@ -6,6 +6,7 @@ import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
@@ -25,9 +26,9 @@ public class MongoClientConnection {
         try {
             System.out.println("Connecting to the DB...");
             mongoClient = MongoClients.create(settings);
-            MongoDatabase database = mongoClient.getDatabase("Testing");
+            MongoDatabase database = mongoClient.getDatabase("Example");
             database.runCommand(new Document("ping", 1));
-            System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
+            System.out.println("Pinged deployment. You successfully connected to MongoDB!");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Failed to connect to MongoDB!");
