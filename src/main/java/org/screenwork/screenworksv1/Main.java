@@ -82,7 +82,7 @@ public class Main {
             MongoCollection<Document> collection = database.getCollection("");
         } */
 
-        MinecraftServer.setBrandName("ScreenWork V1");
+        MinecraftServer.setBrandName("ScreenWorks");
         
         //World Setup
         instanceContainer = instanceManager.createInstanceContainer();
