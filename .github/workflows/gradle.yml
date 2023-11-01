@@ -1,0 +1,61 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Set up Gradle wrapper
+      run: |
+        chmod +x gradlew
+        ./gradlew wrapper --gradle-version 7.2
+    - name: Build with Gradle and Shadow
+      run: ./gradlew shadowJar
+
+    - name: Determine Version
+      id: get_version
+      run: |
+        if [ ${{ github.run_number }} -le 9 ]; then
+          echo "1.0.${{ github.run_number }}"
+        else
+          echo "1.${{ github.run_number }}"
+        fi
+      env:
+        GITHUB_RUN_NUMBER: ${{ github.run_number }}
+
+    - name: Upload Shaded JAR to Release
+      id: upload_jar
+      uses: actions/upload-artifact@v2
+      with:
+        name: spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar
+        path: build/libs/*-all.jar
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: spaceworkv1.0.${{ github.run_number }}
+        release_name: Release spaceworkv1.0.${{ github.run_number }}
+        body: Release notes for spaceworkv1.0.${{ github.run_number }}
+        draft: false
+        prerelease: false
+        files: |
+          spaceworkv1-${{ steps.get_version.outputs.stdout }}.jar
